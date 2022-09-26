@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+@media only screen and (min-width: 1650px) and (max-width: 2560px) {
+    .testimonial .owl-carousel.owl-drag .owl-item {
+        width: 450px !important;
+    }
+}
+@media only screen and (min-width: 1367px) and (max-width: 1920px) {
+    body .container{max-width: 1440px;}
+}
+@media only screen and (min-width: 1367px) and (max-width: 1650px) {
+
+}
+@media only screen and (min-width: 1250px) and (max-width: 1366px) {
+    body .container{max-width: 1230px;}
+}
+@media (max-width:1199px) {
+    .dashboard-user-header{min-height: auto;}
+    .extra-margin {margin-top: 0;}
+    .table{width:1024px !important;}
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
+    .dashboard-user-header{min-height: auto;}
+    .extra-margin{margin-top: 0;}
+    .dash-head{margin-top: 15px;}
+    .table{width: 1024px !important;}
+    .working-time-btn button{margin-bottom: 5px;}
+    .availability-area ul.nav-tabs li a{font-size: 14px;padding:10px 15px;}
+    table.dataTable td.dataTables_empty, 
+    table.dataTable th.dataTables_empty{text-align: left;}
+}
+@media (max-width:767px) {
+    .dash_sideMenu {line-height: initial;}
+    .user-left-side{position: relative;max-width: 100%;height: auto;padding-bottom: 0;}
+    .user-left-side .left-side-item {display: none;}
+    .footer-section{display: none;}
+    .dash-right{width:calc(100% - 0px);}
+    .dash-search .input-group{max-width: 100%;}
+    .top-right-btn {text-align: center;margin: 15px 0 0;}
+    .dashboard-user-header{min-height: auto;}
+    .extra-margin{margin-top: 0;}
+    .dash-head{margin-top: 15px;text-align: center;}
+    .common-box-heading{display: block;}
+    .table{width: 1024px !important;}
+    table.dataTable td.dataTables_empty, table.dataTable th.dataTables_empty{text-align: left;}
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination{justify-content: center;}
+    .availability-area ul.nav-tabs{justify-content: center;}
+    .working-time-btn button{width:100%;margin-bottom: 5px;}
+    .popup-btn {display: block !important;text-align: center;}
+    .popup-btn .common-btn{width: 100%;margin: 0 0 10px;}
+
+}
+
+@media (max-width:425px){
+
+}
+
+@media (max-width:375px){
+
+
+}
+
+@media (min-width:320px) and (max-width:479px){
+
+
+}
+@media (max-width:320px){
+
+
+
+
+}

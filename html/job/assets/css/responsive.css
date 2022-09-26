@@ -1,0 +1,79 @@
+/* <!--------------------------media-query-mobile------------------------------> */
+@media only screen and (max-width: 767px) {
+    .mobile-hide{
+        display: none !important;
+    }
+    .col-fifty{
+        max-width: 50%;
+        float: left;
+    }
+    .button-one {
+        padding: 20px 0px 0px;
+        text-align: center;
+    }
+    .ad-banner-img {
+        padding: 0px 0px 12px;
+    }
+    .bg-1 {
+        padding: 10px 10px;
+    }
+    .bg-2 {
+        padding: 10px 10px;
+    }
+    .btn-custom {
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .copyright {
+        text-align: center;
+    }
+    .policy {
+        text-align: center;
+    }
+    .form-area-bg {
+        padding: 30px 30px;
+    }
+    .form-headings h4 {
+        font-size: 32px;
+        line-height: 40px;
+    }
+    .about-logo{
+        text-align: center;
+    }
+    .about-contact-box{
+        text-align: center;
+    }
+    .about_add_heading {
+        text-align: center;
+    }
+    .account-info {
+        margin-top: 35px;
+    }
+    h4.long-describtion {
+      padding-left: 0px !important;
+      padding-top: 20px;
+    }
+    .header-btn {
+      margin-left: 45px;
+    }
+    .tab_dsh_2 {
+        margin: 0px;
+        padding: 0px;
+    }
+    .simple-banner h1.small {
+        font-size: 2.5em;
+    }
+    html body .height-80 {
+        height: 0px;
+    }
+    .simple-banner {
+        min-height: 300px;
+    }  
+}
+/* <!--------------------------media-query-desktop------------------------------> */
+
+@media only screen and (min-width: 768px) {
+    .desktop-hide{
+        display: none !important;
+    }
+}

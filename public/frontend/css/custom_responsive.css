@@ -1,0 +1,322 @@
+@charset "utf-8";
+/* CSS Document */
+
+@media only screen and (min-width: 1650px) and (max-width: 2560px) {
+    .testimonial .owl-carousel.owl-drag .owl-item {
+        width: 450px !important;
+    }
+}
+@media only screen and (min-width: 1367px) and (max-width: 1920px) {
+    body .container{max-width: 1440px;}
+    .testimonial .owl-carousel.owl-drag .owl-item {
+        width: 468px !important;
+    }
+}
+@media only screen and (min-width: 1367px) and (max-width: 1650px) {
+
+}
+@media only screen and (min-width: 1250px) and (max-width: 1366px) {
+    body .container{max-width: 1230px;}
+    .how-it-work {
+        background: url(../images/hiw-img.png) no-repeat scroll bottom 10px left;
+        background-size: 660px auto;
+        margin-bottom: 70px;
+    }
+    .step-up ul li {
+        padding: 20px;
+    }
+    .section-common h2.sub-heading {
+        font-size: 36px;
+        padding-bottom: 15px;
+    }
+    .how-it-work p {
+        font-size: 13px;
+    }
+    .how-it-work h4 {
+        font-size: 16px;
+    }
+}
+@media (max-width:1199px) {
+    .container{max-width: 1000px;}
+    .home-banner, .home-banner .home-slider, 
+    .home-banner .home-slider .owl-stage-outer, 
+    .home-banner .home-slider .owl-stage-outer .owl-item{height: 550px;}
+    .section-common h2.sub-heading{font-size: 25px;}
+    .why-choose-us .row {justify-content: center;}
+    .how-it-work {background-size: 50% 100%;padding-top: 40px;}
+    .how-it-work .sub-heading {padding-bottom: 0;}
+    .step-up ul li{padding: 20px;}
+    .how-it-work h4{font-size: 16px;padding-bottom: 10px;}
+    .how-it-work p{font-size: 13px;}
+    .testimonial .owl-carousel .owl-nav .owl-prev{left:-80%;}
+    .testi_bx .media h1 {
+        font-size: 16px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        max-width: 149px;
+    }
+    .get-started-content h2{font-size: 30px;margin-bottom: 10px;}
+    .who-we-are {
+        background: url(../images/who-we-r.png) no-repeat scroll bottom 140px right;
+        background-size: auto 290px;
+    }
+    .hire-worker .common-btn {padding: 10px 25px;font-size: 13px;}
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
+    .container{max-width:760px;}
+    .site-menu ul li a {
+        padding: 0 10px;
+    }
+    .site-menu ul li:nth-last-of-type(1) a {
+        padding: 10px 15px;
+    }
+    .home-banner .banner-content-sec h4 {
+        font-size: 26px;
+        line-height: 14px;
+    }
+    .home-banner .banner-content-sec h2 {
+        font-size: 38px;
+        line-height: 40px;
+    }
+    .home-banner, .home-banner .home-slider, 
+    .home-banner .home-slider .owl-stage-outer, 
+    .home-banner .home-slider .owl-stage-outer .owl-item {
+        height: 550px;
+    }
+    .who-we-are {
+        background: url(../images/whower@2x.png) no-repeat scroll bottom 130px right;
+        background-size: auto 219px;
+    }
+    .how-it-work{
+        background: none;
+    }
+    .step-up ul li {
+        display: block;
+        padding: 20px;
+    }
+    .padding-70 {
+        padding: 30px 0;
+        margin: 0;   
+    }
+    .testimonial{
+        background-image: none;
+        height: auto;
+        margin-bottom: 30px;
+    }
+    .testimonial .owl-carousel .owl-nav .owl-prev {
+        left: -244px;
+        position: absolute;
+    }
+    .testi_bx{
+        margin: 10px;
+    }
+    .ts-right{
+        height: auto;
+    }
+    .ts-left {
+        padding-left: 0px;
+    }
+    .testimonial .owl-carousel .owl-stage-outer{
+        overflow: hidden;
+        margin-left: 0;
+    }
+    .section-common h2.sub-heading {
+        font-size: 28px;
+        padding-bottom: 10px;
+    }
+    .who-we-are {
+        padding: 50px 0 30px;
+    }
+    .who-we-aredoc p {
+        text-align: left;
+        font-size: 12px;
+        letter-spacing: 0;
+        color: #8898AA;
+        opacity: 1;
+        font-family: 'Poppins', sans-serif;
+        line-height: 20px;
+    }
+    .footer-social {margin-bottom: 15px;}
+    .get-started-content h2{font-size: 30px;margin-bottom: 15px;}
+    .inner-page-padding{padding-top: 120px;}
+    .search-list-box h2{font-size: 18px;}
+    .search-list-box .common-btn{padding: 10px 30px;}
+    .pagination-area {margin: 20px 0 30px;}
+    .mob_profar {display: block !important;}
+    .profile-details {padding-left: 0;padding-top: 20px;}
+    .profile_top .profile-pic {height: 350px;overflow: hidden;object-fit: cover;}
+    .profile_top .profile-pic img {height: 350px;object-fit: cover;object-position: top;}
+    .job-details-right {padding: 0 15px !important;margin-top: 10px;}
+    .worker-social{float:none;text-align: left !important;width: 100%;}
+    .hire-worker{text-align: left !important;padding: 20px 0;}
+    .hire-worker .common-btn{float: none;}
+    .skill-area{margin-bottom: 0 !important;}
+}
+@media (max-width:767px) {
+    .site-menu #nav-toggle {
+        display: inline-block;
+        background: #F45917;
+        color: #fff;
+        padding: 5px 14px;
+        font-size: 20px;
+    }
+    .site-menu ul {
+        display: none;
+        padding-top: 15px;
+        position: absolute;
+        background: #fff;
+        right: 15px;
+        border-bottom: 5px solid #F45917;
+        width: 100%;
+        padding-bottom: 15px;
+        text-align: center;
+    }
+    .site-menu ul li {
+        display:block;
+        line-height: 30px;
+    }
+    .site-menu ul li a {
+        padding: 0px 5px;
+        color: #25447B;
+        transition: 0.4s ease-in-out;
+    }
+    .site-menu ul li:nth-last-of-type(1) a {
+        background: #F45917;
+        color: #fff;
+        padding: 5px 13px;
+    }
+    .section-common span.about {font-size: 11px;}
+    .section-common h2.sub-heading {font-size: 25px;}
+    .home-banner .banner-content-sec h4 {
+        font-size: 20px;
+        line-height: 20px;
+    }
+    .home-banner .banner-content-sec h2 {
+        font-size: 25px;
+        line-height: 35px;
+    }
+    .home-banner .banner-content-sec p {
+        font-size: 13px;
+        line-height: 22px;
+    }
+    .home-banner, .home-banner .home-slider, .home-banner .home-slider .owl-stage-outer, .home-banner .home-slider .owl-stage-outer .owl-item {
+        height: 550px;
+        object-fit: cover;
+        position: relative;
+    }
+    .home-banner .banner-content-sec {
+        padding: 15px;
+    }
+    .who-we-are {
+        padding: 50px 0 30px;
+    }
+    .who-we-are {
+        background: none;
+    }
+    .why-choose-us .advantage {
+        max-width: 100%;
+    }
+    .how-it-work{
+        background: none;
+        margin: 0;
+    }
+    .padding-70 {
+        padding: 30px 0;
+    }
+    .testimonial .owl-carousel .owl-stage-outer {
+        overflow: visible;
+        margin-left: 0;
+        padding: 20px 0px 20px;
+    }
+    .step-up ul li {
+        padding: 0px;
+    }
+    .testi_bx{
+        margin: 10px;
+    }
+    .ts-left {
+        padding-left: 15px;
+    }
+    .ts-right {
+        height: auto;
+    }
+    .why-choose-us .advantage {
+        padding: 35px 16px
+    }
+    .why-choose-us .advantage .round-bg {
+        max-width: 90px;
+        height: 90px;
+        line-height: 116px;
+    }
+    .why-choose-us .advantage svg {
+        width: 36px;
+    }
+    .get-started-content .common-btn {margin: 0px 0px 10px;}
+    .testimonial{margin-bottom: 50px;}
+    .get-started-content h2{font-size: 25px;margin-bottom: 10px;}
+    .footer-social {margin-bottom: 12px;}
+    .inner-page-padding{padding-top: 120px;}
+    .search-box .form-group{margin-bottom: 10px;}
+    .search-filter-area{margin-bottom: 25px;}
+    .search-list-value{font-size: 20px;}
+    .pagination-area {margin: 20px 0 40px;}
+    .profile-details{padding-left: 0;padding-top: 15px;}
+    .mob_profar{
+        display: block !important;
+    }
+    .worker-social {
+        display: inline-block;
+        float: none;
+        width: 100%;
+        text-align: left;
+    }
+    .section-bg.profile_bottom .nav-tabs .nav-link {
+        font-size: 14px;
+        padding: 15px 10px 12px;
+    }
+    .hire-worker {
+        display: inline-block;
+        width: 100%;
+        padding: 20px 0;
+        text-align: left !important;
+    }
+    .profile-details.left h2 {
+        font-size: 18px;
+    }
+    .job-details-right h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+    .hire-worker .common-btn {
+        width: 100%;
+        float: none;
+        text-align: center;
+    }
+    .job-details-right{padding: 0 15px;margin-top: 10px;}
+    .signup-box{display: block;height: auto;}
+    .signup-box .signup-left{height: auto;background-position: center top;}
+    #loginModal .signup-left{background-position: center top;}
+    .signup-box .signup-right{padding: 20px;height: auto;}
+}
+
+@media (max-width:425px){
+
+}
+
+@media (max-width:375px){
+
+
+}
+
+@media (min-width:320px) and (max-width:479px){
+
+
+}
+@media (max-width:320px){
+
+
+
+
+}

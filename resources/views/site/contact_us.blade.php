@@ -1,144 +1,179 @@
 @extends('layouts.main')
 
 @section('content')
+@php
+    use App\Model\Settings;
+    $social_link = Settings::where('module', '=', 'Social Link')->get();
+    $location = Settings::where('module', '=', 'Location')->get();
+@endphp
 <!--main content-->
-<!--breadcrumb-->
-<div class="breadcrumb-container">
-    <nav data-depth="2" class="breadcrumb container">
-        <h1 class="h1 category-title breadcrumb-title">Contact</h1>
-        <ul>
-            <li>
-            <a href="{{route('/')}}">
-                <span>Home</span>
-            </a>
-            </li>
-            <li>
-            <a href="{{route('contact-us')}}">
-                <span>Contact</span>
-            </a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<!--end breadcrumb-->
-<section id="wrapper">
-    <div id="content-wrapper" class="top-wrapper">
-    <div class="container">
-        <div class="row">
-        <section id="main">
-            <div class="contact-form-information">
+<!------------------ breadcrumbs ------------>
+<section class="breadcrumbs custom-breadcrumbs">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="breadcrumb-title-div">
+                      <div class="bread-left-side">
+                          <h2>Contact Us</h2>
+                      </div>
+                      <div class="breadcrumb-ul right-side">
+                          <ul>
+                          <li><a href="/">HOME</a>/</li>
+                          <li><span>Contact Us</span></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!------------------// breadcrumbs ---------->
+    <div class="main-content-area">
+      <section class="contact-us">
+        <div class="container">
             <div class="row">
-                <div class="contact-banner col-lg-6 col-md-12">
-                <div class="image-container">
-                    <a href="javascript:void(0);">
-                    <img
-                    src="{{ URL::asset('public/frontend/images/contact-us-concept-illustration_114360-3147.jpg') }}"
-                    alt="contact-image">
-                    </a>
-                </div>
-                </div>
-                <div class="information-container col-lg-6 col-md-12">
-                <div class="title-container">
-                    <h3 class="heading">get in touch</h3>
-                    <span class="subheading">We&#39;d Love to Hear From You, Lets Get In Touch!</span>
-                </div>
-                <div class="list-contact-info col-md-12 col-sm-12 col-xs-12">
-                    <div class="contact_info_item col-md-6 col-sm-6 col-xs-6">
-                    <h3>address</h3>
-                    <address>
-                    {{$model[0]->value}}
-                    </address>
+                <div class="col-sm-6">
+                  <div class="contact-us-form">
+                    <div class="contact-title">
+                      <h1>Contact</h1>
+                      <p>Leave us a message by filling the form and we’ll get back to you shortly
+                      </p>
                     </div>
-                    <div class="contact_info_item col-md-6 col-sm-6 col-xs-6">
-                    <h3>Phone</h3>
-                    <p>{{$model[1]->value}}</p>
-                    </div>
-                    <div class="contact_info_item col-md-6 col-sm-6 col-xs-6">
-                    <h3>Email</h3>
-                    <p>
-                        <a href="tel:{{$model[2]->value}}">
-                        {{$model[2]->value}}
-                        </a> 
-                    </p>
-                    </div>
-                    <div class="contact_info_item col-md-6 col-sm-6 col-xs-6">
-                    <h3>additional Information</h3>
-                    <p>We are open: Open 10am to 10pm all days</p>
-                    </div>
-                    <div class="contact_info_item block-social col-md-12 col-sm-12 col-xs-12">
-                    <h3>Social</h3>
-                    <ul class="social-inner">
-                        <li class="facebook">
-                        <a href="{{$social_links[0]->value}}" target="_blank">
-                            <i class="bi bi-facebook"></i><span class="socialicon-label">Facebook</span>
-                        </a>
-                        </li>
-                        <li class="twitter">
-                        <a href="{{$social_links[3]->value}}" target="_blank">
-                            <i class="bi bi-instagram"></i><span class="socialicon-label">Instagram</span>
-                        </a>
-                        </li>
-                        
-                        
-                        
-                    </ul>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-        </section>
-        </div>
-    </div>
-    
-    <div class="contact-map clearfix">
-        <div id="contact-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3742.6899103494648!2d85.84103891492008!3d20.2716911864133!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sPlot.%2011%2C%20Unit%203%2C%20Kharvel%20Nagar%2C%20Bhubaneswar%2C%20Odisha%2C%20India!5e0!3m2!1sen!2sin!4v1660374298870!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-    <div class="container">
-        <div class="contact-form-bottom">
-        <div class="contact-form form-vertical">
-            <div class="title-container">
-            <h3 class="heading">leave us a message</h3>
-            <span class="subheading">-good for nature, good for you-</span>
-            </div>
-            <section class="form-field">
-            <form class="contact-form" id="contact-us-form" action="{{route('contact-us')}}">
+                    <form class="contactform" id="contact-us-form" action="{{route('contact-us')}}">
                     @csrf
-                <div class="form-fields row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
-                    <label for="ContactFormName" class="hidden control-label">Name</label>
-                    <input type="text" id="ContactFormName" class="form-control" name="name" value="" placeholder="Name">
-                    <span class="help-block"></span>
+                      <div class="field">
+                        <span class="fa fa-user"></span>
+                        <input type="text" class="custom-fields" placeholder="Name *" name="name" >
+                        
+                      </div>
+                      <div class="help-block" id="err-name"></div>
+                      <div class="field">
+                        <span class="fa fa-envelope"></span>
+                        <input type="email" class="custom-fields" placeholder="Email Address *" name="email" >
+                        
+                      </div>
+                      <div class="help-block" id="err-email"></div>
+
+                      <div class="field">
+                        <span class="fa fa-phone"></span>
+                        <input type="tel" class="custom-fields" placeholder="Phone Number *"  name="phone">
+                        
+                      </div>
+                      <div class="help-block" id="err-phone"></div>
+
+                      <div class="field">
+                        <span class="fa fa-comments"></span>
+                        <input type="text" class="custom-fields" placeholder="Subject*"  name="subject">
+                        
+                      </div>
+                      <div class="help-block" id="err-subject"></div>
+
+                      <div class="field">
+                        <span class="fa fa-comments"></span>
+                        <textarea name="message" class="custom-fields" placeholder="Type Your Message Here"></textarea>
+                        
+                      </div>
+                      <div class="help-block" id="err-message"></div>
+
+                      <button class="submit-btn-cus" type="submit">Submit</button>
+                    </form>
+                  </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
-                    <label for="ContactFormEmail" class="hidden">Email</label>
-                    <input type="email" id="ContactFormEmail" class="form-control" name="email" autocapitalize="off" value="" placeholder="Email">
-                    <span class="help-block"></span>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 form-group">
-                    <label for="ContactFormPhone" class="hidden">Phone</label>
-                    <input type="text" id="ContactFormPhone" class="form-control" name="phone" value="" placeholder="Phone">
-                    <span class="help-block"></span>
-                </div>              
-                <div class="form-group-area col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                    <label for="ContactFormMessage" class="hidden">Message</label>
-                    <textarea rows="10" id="ContactFormMessage" class="form-control" name="message" placeholder="your message"></textarea>
-                    <span class="help-block"></span>
-                </div>
-                <div class="submit-button col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-sm-6">
+                   <div class="right-area">
                     
-                    <input class="btn btn-primary" name="submitMessage" value="Send" type="submit">
+                    <div class="contact-info alert shadow-soft">
+                      <div class="left ">
+                        <div class="icon">
+                          <i class="fa fa-mobile"></i>
+                        </div>
+                      </div>
+                      <div class="content d-flex align-self-center">
+                        <div class="content">
+                          <a href="tel: {{$location[1]->value}}">{{$location[1]->value}}</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="contact-info alert shadow-soft">
+                      <div class="left ">
+                        <div class="icon">
+                          <i class="fa fa-envelope"></i>
+                        </div>
+                      </div>
+                      <div class="content d-flex align-self-center">
+                        <div class="content">
+                          <a href="mailto:{{$location[2]->value}}">{{$location[2]->value}}</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="contact-info alert shadow-soft">
+                      <div class="left ">
+                        <div class="icon">
+                          <i class="fab fa-whatsapp"></i>
+                        </div>
+                      </div>
+                      <div class="content d-flex align-self-center">
+                        <div class="content">
+                          <a href="{{$social_link[4]->value}}">{{$location[1]->value}}</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="social-links">
+                      <h4 class="find">Connect On</h4>
+                      <ul class="list-inline list-unstyled">
+                        <li class="list-inline-item">
+                          <a href="{{$social_link[3]->value}}" title="" class="social-item btn btn-primary btn-pill btn-icon-only">
+                            <i class="fab fa-linkedin linkedin-icon"></i>
+                          </a>
+                        </li>
+
+                        <li class="list-inline-item">
+                          <a href="{{$social_link[1]->value}}" title="" class="social-item btn btn-primary btn-pill btn-icon-only">
+                            <i class="fab fa-twitter text-twitter"></i>
+                          </a>
+                        </li>
+
+                        <li class="list-inline-item">
+                          <a href="{{$social_link[0]->value}} title="" class="btn btn-primary btn-pill btn-icon-only">
+                            <i class="fab fa-facebook-f text-facebook"></i>
+                          </a>
+                        </li>
+                        
+                        <li class="list-inline-item">
+                          <a href="{{$social_link[2]->value}}" title="" class="social-item btn btn-primary btn-pill btn-icon-only">
+                            <i class="fa fa-youtube-play text-youtube"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                   </div> 
                 </div>
-                </div>
-            </form>
-            </section>
+            </div>
         </div>
+     </section>
+
+     <section class="loc-cust">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+          <div class="location">
+            <div class="location-icon">
+              <a href="#"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a>
+            </div>
+            <div class="location-address">
+              <p><a href="#">{{$location[0]->value}}</a></p>
+            </div>
+          </div>
+          </div>
         </div>
+      </div>
+     </section>
     </div>
-    </div>
-</section>
+  <!--main content area end--> 
+
 
 
 

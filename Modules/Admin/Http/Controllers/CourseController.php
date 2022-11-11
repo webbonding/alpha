@@ -11,7 +11,9 @@ use URL;
 use Carbon\Carbon;
 use App\Model\QuestionAnswer;
 use App\Model\CourseWeek;
-use App\Model\CourseModuleVideo;
+use App\Model\CourseWeekLesson;
+use App\Model\CourseWeekLessonChapter;
+use App\Model\CourseWeekLessonChapterTopic;
 class CourseController extends AdminController {
 
     //*** JSON Request
@@ -192,8 +194,7 @@ class CourseController extends AdminController {
                         ->addColumn('action', function ($model) {
                             return
                                     '<a href="' . Route("admin-course-week-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
-                                    '<a href="' . Route("admin-course-week-lessons", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-eye"></i> Lessons</a>' .
-                                    '<a href="javascript:;" onclick="deleteCourseModule(this);" data-href="' . Route("admin-course-week-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
+                                    '<a href="' . Route("admin-course-week-lessons", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-eye"></i> Lessons</a>';
                         })
                         ->rawColumns(['status', 'action'])
                         ->make(true); //--- Returning Json Data To Client Side
@@ -264,7 +265,7 @@ class CourseController extends AdminController {
             $model->updated_at = Carbon::now()->toDateTimeString();
             $model->save();
             
-            return redirect()->route('admin-course-week', [$data->course_id])->with('success_msg', 'Course module updated successfully.');
+            return redirect()->route('admin-course-week', [$data->course_id])->with('success_msg', 'Course Week updated successfully.');
         } else {
             return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
         }
@@ -283,10 +284,10 @@ class CourseController extends AdminController {
         //--- Redirect Section Ends
     }
     
-    //Module videos
+    //Week Lessons
     
-    public function module_video_datatables($id) {
-        $datas = CourseModuleVideo::where('module_id',$id)->orderBy('id', 'asc')->get();
+    public function week_lessons_datatables($id) {
+        $datas = CourseWeekLesson::where('week_id',$id)->orderBy('id', 'asc')->get();
         //--- Integrating This Collection Into Datatables
         return Datatables::of($datas)
                         ->addIndexColumn()
@@ -311,8 +312,9 @@ class CourseController extends AdminController {
                         })
                         ->addColumn('action', function ($model) {
                             return
-                                    '<a href="' . Route("admin-course-module-video-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
-                                    '<a href="javascript:;" onclick="deleteCourseModuleVideo(this);" data-href="' . Route("admin-course-module-video-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
+                                    '<a href="' . Route("admin-course-week-lessons-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
+                                    '<a href="' . Route("admin-course-week-lessons-chapter", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-eye"></i> Chapter</a>' .
+                                    '<a href="javascript:;" onclick="deleteCourseWeekLesson(this);" data-href="' . Route("admin-course-week-lessons-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
                         })
                         ->rawColumns(['status', 'action'])
                         ->make(true); //--- Returning Json Data To Client Side
@@ -320,19 +322,20 @@ class CourseController extends AdminController {
 
     //*** GET Request
     public function week_lessons($id) {
-        $coursemodule= CourseModule::where('id', $id)->first();
-        return view('admin::course.course_week_lessons_list', compact('id','coursemodule'));
+        
+        $courseweek= CourseWeek::where('id', $id)->first();
+        // print_r($courseweek);
+        // exit;
+        return view('admin::course.course_week_lessons_list', compact('id','courseweek'));
     }
     public function week_lessons_add($id) {
-        $coursemodule= CourseModule::where('id', $id)->first();
-        return view('admin::course.week_lessons_add', compact('id','coursemodule'));
+        $courseweek= CourseWeek::where('id', $id)->first();
+        return view('admin::course.week_lessons_add', compact('id','courseweek'));
     }
     public function post_week_lessons_add(Request $request,$id) {
         //--- Validation Section
         $validator = Validator::make($request->all(), [
                     'name' => 'required',
-                    'time' => 'required',
-                    'video' => 'required|mimes:mp4,mov,ogg',
                     'status' => 'required',
                         ]
         );
@@ -341,38 +344,31 @@ class CourseController extends AdminController {
         });
 
         if ($validator->passes()) {
-            $data = new CourseModuleVideo();
+            $data = new CourseWeekLesson();
             $input = $request->all();
-            $input['module_id']=$id;
-            if ($file = $request->file('video')) {
-                $name = time() . $file->getClientOriginalName();
-                $destinationPath = public_path('uploads/course/video');
-                $file->move($destinationPath, $name);
-                $input['video'] = $name;
-            }
+            $input['week_id']=$id;
+            
             $data->fill($input)->save();
             $model = Course::where('id', $id)->first();
             $model->updated_at = Carbon::now()->toDateTimeString();
             $model->save();
 
-            return redirect()->route('admin-course-module-video', [$id])->with('success_msg', 'Course module video created successfully.');
+            return redirect()->route('admin-course-week-lessons', [$id])->with('success_msg', 'Course week lesson created successfully.');
         } else {
             return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
         }
     }
     //*** GET Request
-    public function module_video_edit($id) {
-        $data = CourseModuleVideo::findOrFail($id);
-        return view('admin::course.module_video_edit', compact('data'));
+    public function week_lessons_edit($id) {
+        $data = CourseWeekLesson::findOrFail($id);
+        return view('admin::course.week_lessons_edit', compact('data'));
     }
 
     //*** POST Request
-    public function post_module_video_edit(Request $request, $id) {
+    public function post_week_lessons_edit(Request $request, $id) {
         //--- Validation Section
         $validator = Validator::make($request->all(), [
                     'name' => 'required',
-                    'time' => 'required',
-                    'video' => 'nullable|mimes:mp4,mov,ogg',
                     'status' => 'required',
                         ]
         );
@@ -381,43 +377,254 @@ class CourseController extends AdminController {
         });
         if ($validator->passes()) {
             //--- Logic Section
-            $data = CourseModuleVideo::findOrFail($id);
+            $data = CourseWeekLesson::findOrFail($id);
             $input = $request->all();
-            if ($file = $request->file('video')) {
-                $name = time() . $file->getClientOriginalName();
-                $destinationPath = public_path('uploads/course/video');
-                $file->move($destinationPath, $name);
-                $input['video'] = $name;
-            }
-
             $data->update($input);
             $model = Course::where('id', $data->course_id)->first();
             $model->updated_at = Carbon::now()->toDateTimeString();
             $model->save();
             
-            return redirect()->route('admin-course-module-video', [$data->module_id])->with('success_msg', 'Course module video updated successfully.');
+            return redirect()->route('admin-course-week-lessons', [$data->week_id])->with('success_msg', 'Course week lesson updated successfully.');
         } else {
             return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
         }
         //--- Redirect Section Ends
     }
-    public function module_video_delete($id) {
+    public function week_lessons_delete($id) {
         $data = [];
-        $model = CourseModuleVideo::findOrFail($id);
-        //If Photo Doesn't Exist
-        if ($model->video == null) {
-            $model->delete();
-            //--- Redirect Section     
-            $data['status'] = 200;
-            $data['msg'] = 'Data Deleted Successfully.';
-            return response()->json($data);
-            //--- Redirect Section Ends     
+        $model = CourseWeekLesson::findOrFail($id);
+        
+        
+        $model->delete();
+        //--- Redirect Section
+        $data['status'] = 200;
+        $data['msg'] = 'Data Deleted Successfully.';
+        return response()->json($data);
+        //--- Redirect Section Ends
+    }
+
+    //Week Lessons Chapter
+    
+    public function week_lessons_chapter_datatables($id) {
+        $datas = CourseWeekLessonChapter::where('lesson_id',$id)->orderBy('id', 'asc')->get();
+        //--- Integrating This Collection Into Datatables
+        return Datatables::of($datas)
+                        ->addIndexColumn()
+                        ->editColumn('name', function($data) {
+                            return $data->name;
+                        })
+                        ->editColumn('status', function ($model) {
+                            if ($model->status == '0') {
+                                $status = '<span class="badge badge-warning"><i class="icofont-warning"></i>Inactive</span>';
+                            } else if ($model->status == '1') {
+                                $status = '<span class="badge badge-success"><i class="icofont-check"></i>Active</span>';
+                            } else if ($model->status == '3') {
+                                $status = '<span class="badge badge-danger"><i class="icofont-close"></i>Delete</span>';
+                            }
+                            return $status;
+                        })
+                        ->editColumn('created_at', function ($model) {
+                                return (!empty($model->created_at)) ? \Carbon\Carbon::parse($model->created_at)->format('d-m-Y H:i A') : 'Not Found';
+                        })
+                        ->addColumn('action', function ($model) {
+                            return
+                                    '<a href="' . Route("admin-course-week-lessons-chapter-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
+                                    '<a href="' . Route("admin-course-week-lessons-chapter-topic", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-eye"></i> Topic</a>' .
+                                    '<a href="javascript:;" onclick="deleteCourseWeekLessonChapter(this);" data-href="' . Route("admin-course-week-lessons-chapter-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
+                        })
+                        ->rawColumns(['status', 'action'])
+                        ->make(true); //--- Returning Json Data To Client Side
+    }
+
+    //*** GET Request
+    public function week_lessons_chapter($id) {
+        
+        $courseweeklesson= CourseWeekLesson::where('id', $id)->first();
+        // print_r($courseweeklesson);
+        // exit;
+        return view('admin::course.course_week_lessons_chapter_list', compact('id','courseweeklesson'));
+    }
+    public function week_lessons_chapter_add($id) {
+        $courseweeklesson= CourseWeekLesson::where('id', $id)->first();
+        return view('admin::course.week_lessons_chapter_add', compact('id','courseweeklesson'));
+    }
+    public function post_week_lessons_chapter_add(Request $request,$id) {
+        //--- Validation Section
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required',
+                    'status' => 'required',
+                        ]
+        );
+        $validator->after(function($validator) use($request) {
+            
+        });
+
+        if ($validator->passes()) {
+            $data = new CourseWeekLessonChapter();
+            $input = $request->all();
+            $input['lesson_id']=$id;
+            
+            $data->fill($input)->save();
+            $model = Course::where('id', $id)->first();
+            $model->updated_at = Carbon::now()->toDateTimeString();
+            $model->save();
+
+            return redirect()->route('admin-course-week-lessons-chapter', [$id])->with('success_msg', 'Course week lesson chapter created successfully.');
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
         }
-        //If Photo Exist
-        if (isset($model->video))
-            if (file_exists(public_path('uploads/course/video' . $model->video))) {
-                unlink(public_path('uploads/course/video' . $model->video));
-            }
+    }
+    //*** GET Request
+    public function week_lessons_chapter_edit($id) {
+        $data = CourseWeekLessonChapter::findOrFail($id);
+        return view('admin::course.week_lessons_chapter_edit', compact('data'));
+    }
+
+    //*** POST Request
+    public function post_week_lessons_chapter_edit(Request $request, $id) {
+        //--- Validation Section
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required',
+                    'status' => 'required',
+                        ]
+        );
+        $validator->after(function($validator) use($request) {
+            
+        });
+        if ($validator->passes()) {
+            //--- Logic Section
+            $data = CourseWeekLessonChapter::findOrFail($id);
+            $input = $request->all();
+            $data->update($input);
+            $model = Course::where('id', $data->course_id)->first();
+            $model->updated_at = Carbon::now()->toDateTimeString();
+            $model->save();
+            
+            return redirect()->route('admin-course-week-lessons-chapter', [$data->week_id])->with('success_msg', 'Course week lesson chapter updated successfully.');
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
+        }
+        //--- Redirect Section Ends
+    }
+    public function week_lessons_chapter_delete($id) {
+        $data = [];
+        $model = CourseWeekLessonChapter::findOrFail($id);
+        
+        
+        $model->delete();
+        //--- Redirect Section
+        $data['status'] = 200;
+        $data['msg'] = 'Data Deleted Successfully.';
+        return response()->json($data);
+        //--- Redirect Section Ends
+    }
+
+    //Week Lessons Chapter Topic
+    
+    public function week_lessons_chapter_topic_datatables($id) {
+        $datas = CourseWeekLessonChapterTopic::where('chapter_id',$id)->orderBy('id', 'asc')->get();
+        //--- Integrating This Collection Into Datatables
+        return Datatables::of($datas)
+                        ->addIndexColumn()
+                        ->editColumn('name', function($data) {
+                            return $data->name;
+                        })
+                        ->editColumn('status', function ($model) {
+                            if ($model->status == '0') {
+                                $status = '<span class="badge badge-warning"><i class="icofont-warning"></i>Inactive</span>';
+                            } else if ($model->status == '1') {
+                                $status = '<span class="badge badge-success"><i class="icofont-check"></i>Active</span>';
+                            } else if ($model->status == '3') {
+                                $status = '<span class="badge badge-danger"><i class="icofont-close"></i>Delete</span>';
+                            }
+                            return $status;
+                        })
+                        ->editColumn('created_at', function ($model) {
+                                return (!empty($model->created_at)) ? \Carbon\Carbon::parse($model->created_at)->format('d-m-Y H:i A') : 'Not Found';
+                        })
+                        ->addColumn('action', function ($model) {
+                            return
+                                    '<a href="' . Route("admin-course-week-lessons-chapter-topic-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
+                                    '<a href="javascript:;" onclick="deleteCourseWeekLessonChapterTopic(this);" data-href="' . Route("admin-course-week-lessons-chapter-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
+                        })
+                        ->rawColumns(['status', 'action'])
+                        ->make(true); //--- Returning Json Data To Client Side
+    }
+
+    //*** GET Request
+    public function week_lessons_chapter_topic($id) {
+        
+        $courseweeklessonchapter= CourseWeekLessonChapter::where('id', $id)->first();
+        // print_r($courseweeklesson);
+        // exit;
+        return view('admin::course.course_week_lessons_chapter_topic_list', compact('id','courseweeklessonchapter'));
+    }
+    public function week_lessons_chapter_topic_add($id) {
+        $courseweeklessonchapter= CourseWeekLessonChapter::where('id', $id)->first();
+        return view('admin::course.week_lessons_chapter_topic_add', compact('id','courseweeklessonchapter'));
+    }
+    public function post_week_lessons_chapter_topic_add(Request $request,$id) {
+        //--- Validation Section
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required',
+                    'status' => 'required',
+                        ]
+        );
+        $validator->after(function($validator) use($request) {
+            
+        });
+
+        if ($validator->passes()) {
+            $data = new CourseWeekLessonChapterTopic();
+            $input = $request->all();
+            $input['chapter_id']=$id;
+            
+            $data->fill($input)->save();
+            $model = Course::where('id', $data->course_id)->first();
+            $model->updated_at = Carbon::now()->toDateTimeString();
+            $model->save();
+
+            return redirect()->route('admin-course-week-lessons-chapter-topic', [$id])->with('success_msg', 'Course week lesson chapter topic created successfully.');
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
+        }
+    }
+    //*** GET Request
+    public function week_lessons_chapter_topic_edit($id) {
+        $data = CourseWeekLessonChapterTopic::findOrFail($id);
+        return view('admin::course.week_lessons_chapter_topic_edit', compact('data'));
+    }
+
+    //*** POST Request
+    public function post_week_lessons_chapter_topic_edit(Request $request, $id) {
+        //--- Validation Section
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required',
+                    'status' => 'required',
+                        ]
+        );
+        $validator->after(function($validator) use($request) {
+            
+        });
+        if ($validator->passes()) {
+            //--- Logic Section
+            $data = CourseWeekLessonChapterTopic::findOrFail($id);
+            $input = $request->all();
+            $data->update($input);
+            $model = Course::where('id', $data->course_id)->first();
+            $model->updated_at = Carbon::now()->toDateTimeString();
+            $model->save();
+            
+            return redirect()->route('admin-course-week-lessons-chapter-topic', [$data->chapter_id])->with('success_msg', 'Course week lesson chapter topic updated successfully.');
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
+        }
+        //--- Redirect Section Ends
+    }
+    public function week_lessons_chapter_topic_delete($id) {
+        $data = [];
+        $model = CourseWeekLessonChapterTopic::findOrFail($id);
+        
         
         $model->delete();
         //--- Redirect Section

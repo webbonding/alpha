@@ -41,15 +41,13 @@ Route::middleware(['web'])->group(function () {
     Route::post('remove-cart', ['uses' => 'CartController@remove_from_cart', 'as' => 'remove-cart']);
 });
 Route::middleware(['user_not_logged_in'])->group(function () {
-    Route::get('signup', 'SiteController@get_signup')->name('signup');
     Route::post('signup', 'SiteController@post_signup')->name('signup');
     Route::get('active-account/{id}/{token}', 'SiteController@get_active_account')->name('active-account');
-    Route::get('login', 'SiteController@get_login')->name('login');
+//    Route::post('resend-active-token', 'SiteController@resend_active_token')->name('resend-active-token');
     Route::post('login', 'SiteController@post_login')->name('login');
-    Route::get('forgot-password', 'SiteController@get_forgot_password')->name('forgot-password');
-    Route::post('forgot-password', 'SiteController@post_forgot_password')->name('forgot-password');
+    Route::put('forgot-password', 'SiteController@post_forgot_password')->name('forgot-password');
     Route::get('reset-password/{id}/{token}', 'SiteController@get_reset_password')->name('reset-password');
-    Route::post('set-password', 'SiteController@post_reset_password')->name('set-password');
+    Route::put('set-password', 'SiteController@post_reset_password')->name('set-password');
 });
 Route::middleware(['user_logged_in'])->group(function () {
     Route::get('logout', ['uses' => 'SiteController@logout', 'as' => 'logout']);

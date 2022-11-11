@@ -17,8 +17,6 @@ class DashboardController extends AdminController {
     public function index() {
         $data_msg = [];
         $data_msg['total_user'] = UserMaster::where('type_id','=', '2')->count();
-        $data_msg['total_category'] = Category::where('status','<>', '3')->count();
-        $data_msg['total_subcategory'] = Subcategory::where('status','<>', '3')->count();
         $data_msg['total_blog'] = Blog::where('status','<>', '3')->count();
         $data_msg['total_slider'] = Slider::where('status','<>', '3')->count();
         return view('admin::dashboard.dashboard', $data_msg);

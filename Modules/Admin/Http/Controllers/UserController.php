@@ -44,18 +44,6 @@ class UserController extends AdminController {
                         ->editColumn('created_at', function($model) {
                             return !empty($model->created_at) ? date('jS M Y, g:i A', strtotime($model->created_at)) : '';
                         })
-                        ->editColumn('payment_status', function ($model) {
-                            if ($model->payment_status == '0') {
-                                $payment_status= '<span class="badge badge-warning"><i class="icofont-warning"></i>Inactive</span>';
-                            } else if ($model->status == '1') {
-                                if($model->subscription_end >= Carbon::now()->format('Y-m-d')){
-                                $payment_status = '<span class="badge badge-success"><i class="icofont-check"></i>Active</span>';
-                                }else{
-                                $payment_status= '<span class="badge badge-warning"><i class="icofont-warning"></i>Inactive</span>';  
-                                }
-                            } 
-                            return $payment_status;
-                        })
                         ->editColumn('status', function ($model) {
                             if ($model->status == '0') {
                                 $status = '<span class="badge badge-warning"><i class="icofont-warning"></i>Inactive</span>';

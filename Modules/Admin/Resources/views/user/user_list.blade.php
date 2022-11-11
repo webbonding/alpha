@@ -38,7 +38,6 @@
                             <th>Image</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Subscription</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -68,7 +67,6 @@
                 {data: 'image', name: 'image', orderable: false, searchable: false},
                 {data: 'full_name', name: 'full_name'},
                 {data: 'email', name: 'email'},
-                {data: 'payment_status', name: 'payment_status', orderable: false, searchable: false},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false}
             ]

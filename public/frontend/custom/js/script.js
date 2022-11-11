@@ -95,20 +95,22 @@ $(document).ready(function () {
             contentType: false,
             data: data,
             success: function (resp) {
-                // $.iaoAlert({
-                //     type: "success",
-                //     position: "top-right",
-                //     mode: "dark",
-                //     msg: resp.msg,
-                //     autoHide: true,
-                //     alertTime: "3000",
-                //     fadeTime: "1000",
-                //     closeButton: true,
-                //     fadeOnHover: true,
-                //     zIndex: '9999'
-                // });
+                $.iaoAlert({
+                    type: "success",
+                    position: "top-right",
+                    mode: "dark",
+                    msg: resp.msg,
+                    autoHide: true,
+                    alertTime: "3000",
+                    fadeTime: "1000",
+                    closeButton: true,
+                    fadeOnHover: true,
+                    zIndex: '9999'
+                });
                 $('#signup-form')[0].reset();
-                window.location.href = resp.link;
+                $('.modal').modal('hide');
+//                $('#resend-activation-form').find('[name="id"]').val(resp.u_id);
+//                $('#resend_activation_modal').modal('show');
                 ajaxindicatorstop();
             },
             error: function (resp) {
@@ -146,38 +148,6 @@ $(document).ready(function () {
             }
         })
     });
-    $('#check-out-form').submit(function (event) {
-        event.preventDefault();
-        ajaxindicatorstart();
-        $('.help-block').html('').closest('.form-group').removeClass('has-error');
-        var url = $(this).attr('action');
-        var csrf_token = $('input[name=_token]').val();
-        var data = new FormData($(this)[0]);
-        $.ajax({
-            url: url,
-            headers: {'X-CSRF-TOKEN': csrf_token},
-            type: 'POST',
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            data: data,
-            success: function (resp) {
-//                alert(1);
-                // success_msg('Thank You');
-                ajaxindicatorstop();
-                window.location.href = resp.link;
-                    // dopayment(resp.amount);
-                
-
-            },
-            error: function (resp) {
-                $.each(resp.responseJSON.errors, function (key, val) {
-                    $("#error-" + key).html(val[0]).closest('.form-group').addClass('has-error');
-                });
-                ajaxindicatorstop();
-            }
-        })
-    });
     $('#forgot-form').submit(function (event) {
         event.preventDefault();
         ajaxindicatorstart();
@@ -206,11 +176,12 @@ $(document).ready(function () {
                     fadeOnHover: true,
                 });
                 $('#forgot-form')[0].reset();
+                $('.modal').modal('hide');
                 ajaxindicatorstop();
             },
             error: function (resp) {
                 $.each(resp.responseJSON.errors, function (key, val) {
-                    $("#err-" + key).html(val[0]).closest('.form-group').addClass('has-error');
+                    $("#er-" + key).html(val[0]).closest('.form-group').addClass('has-error');
                 });
                 ajaxindicatorstop();
             }
@@ -271,29 +242,62 @@ $(document).ready(function () {
             contentType: false,
             data: data,
             success: function (resp) {
-                // $.iaoAlert({
-                //     type: "success",
-                //     position: "top-right",
-                //     mode: "dark",
-                //     msg: resp.msg,
-                //     autoHide: true,
-                //     alertTime: "3000",
-                //     fadeTime: "1000",
-                //     closeButton: true,
-                //     fadeOnHover: true,
-                // });
-                $('#reset-password-form')[0].reset();
-                window.location.href = resp.link;
+                $.iaoAlert({
+                    type: "success",
+                    position: "top-right",
+                    mode: "dark",
+                    msg: resp.msg,
+                    autoHide: true,
+                    alertTime: "3000",
+                    fadeTime: "1000",
+                    closeButton: true,
+                    fadeOnHover: true,
+                });
+                $('.modal').modal('hide');
                 ajaxindicatorstop();
             },
             error: function (resp) {
                 $.each(resp.responseJSON.errors, function (key, val) {
-                    $("#err-" + key).html(val[0]).closest('.form-group').addClass('has-error');
+                    $("#erro-" + key).html(val[0]).closest('.form-group').addClass('has-error');
                 });
                 ajaxindicatorstop();
             }
         })
     });
+
+    $('#check-out-form').submit(function (event) {
+        event.preventDefault();
+        ajaxindicatorstart();
+        $('.help-block').html('').closest('.form-group').removeClass('has-error');
+        var url = $(this).attr('action');
+        var csrf_token = $('input[name=_token]').val();
+        var data = new FormData($(this)[0]);
+        $.ajax({
+            url: url,
+            headers: {'X-CSRF-TOKEN': csrf_token},
+            type: 'POST',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            data: data,
+            success: function (resp) {
+//                alert(1);
+                // success_msg('Thank You');
+                ajaxindicatorstop();
+                window.location.href = resp.link;
+                    // dopayment(resp.amount);
+                
+
+            },
+            error: function (resp) {
+                $.each(resp.responseJSON.errors, function (key, val) {
+                    $("#error-" + key).html(val[0]).closest('.form-group').addClass('has-error');
+                });
+                ajaxindicatorstop();
+            }
+        })
+    });
+    
 
     $('#customer-editprofile-form').submit(function (event) {
         event.preventDefault();
@@ -392,8 +396,9 @@ $(document).on('submit', '#contact-us-form', function (event) {
         },
         error: function (resp) {
             $.each(resp.responseJSON.errors, function (key, val) {
-                $('#contact-us-form').find('[name="' + key + '"]').closest('.form-group').find('.help-block').html(val[0]);
-                $('#contact-us-form').find('[name="' + key + '"]').closest('.form-group').addClass('has-error');
+                // $('#contact-us-form').find('[name="' + key + '"]').closest('.form-group').find('.help-block').html(val[0]);
+                // $('#contact-us-form').find('[name="' + key + '"]').closest('.form-group').addClass('has-error');
+                $("#err-" + key).html(val[0]).closest('.form-group').addClass('has-error');
             });
             ajaxindicatorstop();
         }
@@ -615,12 +620,7 @@ function changeQuantity(obj, cartId) {
 }
 
 
-function showSearchModal() {
-    $('.modal').modal('hide');
-    $('.help-block').html('').closest('.form-group').removeClass('has-error');
-   
-    $('#searchModal').modal('show');
-}
+
 
 
 

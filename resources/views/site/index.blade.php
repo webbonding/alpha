@@ -3,187 +3,197 @@
 
 @endsection
 @section('content')
-<div id="top_home">
-    <!-- -------------------slider----------- -->
-    <section id="ishislider" class="ishislider-container owl-carousel">
-    @forelse($sliders as $slider)
-        <div class="item">
-            <a href="#">
-            <img src="{{ URL::asset('public/uploads/slider/'.$slider->photo) }}" alt="Slide-1" class="img-responsive">
-            </a>
-        </div>
-    @empty
-    @endforelse
-    </section>
-    <!--slider-->
-    <!--------------------main category------------>
-    <section class="main-categotys">
-        <div class="container">
-            <h3 class="home-title"><span class="title-icon"><span></span></span>Shop By Category</h3>
-            <div class="row">
-                @forelse($categories as $category)
-                <div class="col-sm-4 col-xs-cat text-center"> 
-                    <div class="itemss-thumb"> 
-                    <img src="{{ URL::asset('public/uploads/categories/'.$category->photo) }}" class="img-fluid cate-img" alt="Image"> 
-                    <a href="{{ route('product.category',$category->slug) }}" class="over-layer-cat"></a> </div> 
-                    <div class="cat-content"> 
-                        <h3> {{$category->name}} </h3> 
-                    </div> 
-                </div>
-                @empty
-                @endforelse
-            </div>  
-        </div> 
-    </section>
-    <!--------------------//main category----------->
-    <!---------------------sub category------------->
-    <section id="ishicategory" class="ishicategoryblock">
-        <h3 class="home-title"><span class="title-icon"><span></span></span></h3>
-        <div class="container">
-        <div class="ishicategoryblock-carousel owl-carousel">
-            @forelse($subcategories as $subcategory)
-            <div class="image-container"> 
-                <div class="item">
-                <a href="{{ route('product.subcat',['slug1' => $subcategory->category->slug, 'slug2' => $subcategory->slug]) }}">
-                    <img src="{{ URL::asset('public/uploads/subcategories/'.$subcategory->photo) }}" alt="category-1" class="img-responsive" />
-                </a>
-                <div class="text-container">
-                {{$subcategory->name}}
-                </div>
-                </div>  
-            </div> 
-            @empty
-            @endforelse
-        </div>  
-        </div>
-    </section>
-    <!---------------------//sub category------------->
-     <!---------------------//cart modal------------>
-     <div class="cart-modal-overlay">
-          <div class="cart-modal">
-            <i id="close-btn" class="fas fa-times"></i>
-              <h1 class="cart-is-empty">Cart is empty</h1>
-            
-              <div class="product-rows">
-              </div>
-              <div class="total">
-                <h1 class="cart-total">TOTAL</h1>
-                  <span class="total-price">$0</span>
-                    <button class="purchase-btn">PURCHASE</button>
-              </div>
-            </div>
-      </div>
-      <!--------------//cart modal---------->
-      <!---------------------featured product------------->
-      <section id="ishispecialproducts" class="container">
-        <h3 class="home-title"><span class="title-icon"><span></span></span>Featured Product</h3>
-        <div class="block_content row">
-          <div id="ishispecialproducts-carousel" class="owl-carousel products">
-          @forelse($products as $product)
-            <div class="product-thumb">
-              <div class="item">
-                <div class="product-desc">
-                  <div class="product-title"><a href="javascript:void('0');">{{$product->name}}</a></div>
-                  
-                </div>
-                <div class="image">
-                  <a href="#" class="thumbnail product-thumbnail">
-                    <img src="{{ URL::asset('public/uploads/product/'.$product->photo) }}" alt="product-img">
-                    <img class="product-img-extra change" alt="product-img" src="{{ URL::asset('public/uploads/product/'.$product->photo) }}">
-                  </a>
-                 
-                </div>
-                <div class="caption">    
-                 
-                  <p class="price">
-
-                    <span class="price-sale">{{number_format($product->price,2)}}Rs </span>
-                </p>
-                <div class="btn-cart">
-                    <a href="javascript:void('0');" data-button-action="add-to-cart" class="button sold-out">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span class="lblcart">net weight - {{$product->net_weight}}</span>
-                        </br>
-                        <span class="lblcart">Brand - {{$product->brand}}</span>
+<div class="main-content-area">
+    <section class="login-areas bg-img-c">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                <div class="btn-div">
+                    <a href="#" class="btns btn-blue">
+                    Click Here
                     </a>
                 </div>
-
-                    <form id='myform-carousel{{$product->id}}' method='POST' class="quantity cart-form" action="">
-                        @csrf
-                        <input type='hidden' name='product_id' value="{{$product->id}}"  />
-                        <input type='button' value='-' class='qtyminus minus' field='quantity' />
-                        <input type='text' name='quantity' value='1' class='qty' />
-                        <input type='button' value='+' class='qtyplus plus' field='quantity' />
-                    
-                        <button type="submit" class="btn btn-secondary btn-lg ">Add to Cart</button> 
-                    </form>                 
-                </div> 
-              </div>
-            </div>
-            @empty
-            @endforelse
-            
-          </div>
-        </div>
-      </section>
-      <!---------------------//featured product------------->
-      <!---------------------lastest grid------------->
-        <section class="product-grid-div">
-            <div class="container">
-                <h3 class="home-title"><span class="title-icon"><span></span></span>Latest Products</h3> 
-                <div class="row">
-                @forelse($latest_products as $product)
-                    <div class="col-sm-3 my-grid"> 
-                        <div class="product-thumb">
-                            <div class="item">
-                                <div class="product-desc">
-                                <div class="product-title"><a href="javascript:void('0');">{{$product->name}}</a></div>
-                                
-                                </div>
-                                <div class="image">
-                                <a href="#" class="thumbnail product-thumbnail">
-                                    <img src="{{ URL::asset('public/uploads/product/'.$product->photo) }}" alt="product-img">
-                                    <img class="product-img-extra change" alt="product-img" src="{{ URL::asset('public/uploads/product/'.$product->photo) }}">
-                                </a>
-                                
-                                </div>
-                                <div class="caption">    
-                                
-                                <p class="price">
-
-                                    <span class="price-sale">{{number_format($product->price,2)}}Rs </span>
-                                </p>
-                                <div class="btn-cart">
-                                    <a href="javascript:void('0');" data-button-action="add-to-cart" class="button sold-out">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span class="lblcart">net weight - {{$product->net_weight}}</span>
-                                        </br>
-                                        <span class="lblcart">Brand -{{$product->brand}}</span>
-                                    </a>
-                                </div>
-
-                                <form id='myform-grid{{$product->id}}' method='POST' class="quantity cart-form" action="">
-                                    @csrf
-                                    <input type='hidden' name='product_id' value="{{$product->id}}"  />
-                                    <input type='button' value='-' class='qtyminus minus' field='quantity' />
-                                    <input type='text' name='quantity' value='1' class='qty' />
-                                    <input type='button' value='+' class='qtyplus plus' field='quantity' />
-                                
-                                    <button type="submit" class="btn btn-secondary btn-lg ">Add to Cart</button> 
-                                </form>               
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                    @empty
-                    @endforelse
                 </div>
-                
+            
+                <div class="col-lg-6">
+                    <div class="contentformob desktop-section-hide">
+                    <h4>In publishing and graphic design,</h4>
+                    <p>Lorem ipsum is a placeholder text commonly used to</p>
+                    </div>
+                    <div class="margin-div">
+                    <a href="#" class="btn-purples">
+                        Click Here
+                    </a>
+                    </div>
+                </div>
             </div>
-        </section>
-        <!---------------------//latest grid------------->
+        </div>
+    </section>
 
-</div>
+
+    <section class="testimonial pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+            <div class="col-sm-12">
+                <div class="main-heading custom-center">
+                <h2>Wall Of Praise</h2>
+                </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col-sm-3">
+                <div class="testimonial-total">
+                <div class="testimonial-bg color-1 height-one"> 
+                <p>D's strength in tutoring comes in the form of versatility 
+                    and flexibility using a wide range of techniques to ensure 
+                    that not only does the student absorbs the knowledge but 
+                    understands the
+                </p>
+                <p class="moretext">
+                    the knowledge but understands the
+                </p>
+                <a class="moreless-button" href="javascript:void(0)">.....</a>
+                </div> 
+                <div class="testi-name">
+                <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="testimonial-total">
+                <div class="testimonial-bg color-1 height-two"> 
+                    <p>D's strength in tutoring comes in the form of versatility 
+                        and flexibility using a wide range of techniques to ensure 
+                        that not only does the student absorbs the knowledge but 
+                        understands the and flexibility using a wide range of techniques to ensure 
+                        that not only does the student absorbs the knowledge but 
+                        understands the
+                    </p>
+                    <p class="moretext">
+                    the knowledge but understands the
+                    </p>
+                    <a class="moreless-button" href="javascript:void(0)">.....</a>
+                </div> 
+                <div class="testi-name">
+                    <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                    <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="testimonial-total">
+                <div class="testimonial-bg color-2 height-three"> 
+                    <p>D's strength in tutoring comes in the form of versatility 
+                        and flexibility using a wide range of techniques to ensure 
+                        that not only does the student absorbs the knowledge but 
+                        understands the ity using a wide range of techniques 
+                    </p>
+                    <p class="moretext">
+                    the knowledge but understands the
+                    </p>
+                    <a class="moreless-button" href="javascript:void(0)">.....</a>
+                </div> 
+                <div class="testi-name">
+                    <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                    <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="testimonial-total">
+                <div class="testimonial-bg color-3 height-one"> 
+                    <p>D's strength in tutoring comes in the form of versatility 
+                        and flexibility using a wide range of techniques to
+                    </p>
+                    <p class="moretext">
+                    the knowledge but understands the
+                    </p>
+                    <a class="moreless-button" href="javascript:void(0)">.....</a>
+                </div> 
+                <div class="testi-name">
+                    <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                    <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-sm-3">
+                <div class="testimonial-total custom-margin-top">
+                <div class="testimonial-bg color-1 height-two"> 
+                    <p>D's strength in tutoring comes in the form of versatility 
+                        and flexibility using a wide range of techniques to ensure 
+                        that not only does the student absorbs the knowledge but 
+                        understands the and flexibility using a wide range of techniques to ensure 
+                        that not only does the student absorbs the knowledge but 
+                        understands the
+                    </p>
+                </div> 
+                <div class="testi-name">
+                    <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                    <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="testimonial-total">
+                <div class="testimonial-bg color-1 height-one"> 
+                <p>D's strength in tutoring comes in the form of versatility 
+                    and flexibility using a wide range of techniques to ensure 
+                    that not only does the student absorbs the knowledge but 
+                    understands the
+                </p>
+                </div> 
+                <div class="testi-name">
+                <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="testimonial-total custom-margin-top">
+                <div class="testimonial-bg color-3 height-one"> 
+                    <p>D's strength in tutoring comes in the form of versatility 
+                        and flexibility using a wide range of techniques to
+                    </p>
+                </div> 
+                <div class="testi-name">
+                    <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                    <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="testimonial-total custom-margin-top">
+                <div class="testimonial-bg color-2 height-three"> 
+                    <p>D's strength in tutoring comes in the form of versatility 
+                        and flexibility using a wide range of techniques to ensure 
+                        that not only does the student absorbs the knowledge but 
+                        understands the
+                    </p>
+                </div> 
+                <div class="testi-name">
+                    <img src="{{ URL::asset('public/frontend/images/testi.png') }}">
+                    <span>Testimonial</span>
+                </div>  
+                </div>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-sm-12">
+                <div class="page-btn text-center">
+                <a href="about.html" class="btns btn-purples-new">
+                    View All Testimonials
+                </a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+</div><!--main content area end--> 
 
 @stop
 @section('js')

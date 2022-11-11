@@ -1,155 +1,228 @@
 @php
-use App\Model\Category;
-$categories = Category::where('status', '=', '1')->get();
+
 @endphp
+<!-------- back to top html------------>
+<a id="back2Top" title="Back to top" href="#"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
 
 
-
-
-<footer id="footer">
-    <div class="footer-container">
-    <div class="container">
-        <div class="row">
-        <!-- -------------------storeinfo---------- -->
-        <div id="ishistoreinfo" class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div id="ishistoreinfo-container" class="ishistoreinfo-inner">
-            <a href="index.html" class="store-logo">
-                <img src="{{ URL::asset('public/frontend/images/sf-removebg-preview.png') }}" style="max-width: 70px;" alt="footer-logo">
-            </a>
-            <div class="store-description">
-                <p>Your one stop shopping solution for Homemade, Traditional and Specialty Foods.</p>
+<!-- login modal -->
+<div class="modal fade" id="logIn" tabindex="-1" role="dialog" aria-labelledby="logInLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title modal-custom-title" id="logInLabel">Login To Alpha Maths</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true" class="cross"><i class="fa fa-times-circle"></i></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="custom-modal-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="log-sign-body">
+                <!-- <div class="login-with-btn">
+                  <a href="https://www.facebook.com/" class="custom-my-button facebook-bg"><i class="fa fa-facebook-square margin-right-area" aria-hidden="true"></i> Continue With Facebook</a>
+                </div>
+                <div class="login-with-btn">
+                  <a href="https://www.facebook.com/" class="custom-my-button google-bg"><i class="fa fa-google margin-right-area" aria-hidden="true"></i> Continue With Google</a>
+                </div>
+                <div class="login-with-btn text-center">
+                  <h6 class="or-text">OR</h6>
+                </div> -->
+                <form id="login-form" action="{{ Route('login') }}" method="POST">
+                    @csrf
+                  <div class="form-group">
+                    <input type="email" class="form-control log-user" placeholder="User Email" name="email" value="<?php
+                        if (isset($_COOKIE['user_email']) && $_COOKIE['user_email'] !== NULL) {
+                            echo $_COOKIE['user_email'];
+                        }
+                        ?>" placeholder="Enter Your Email" />
+                    <div class="help-block" id="err-email"></div>
+                  </div>
+                  <div class="form-group gap-reduce">
+                    <input type="password" class="form-control log-user" placeholder="User Password" name="password" value="<?php
+                        if (isset($_COOKIE['user_password']) && $_COOKIE['user_password'] !== NULL) {
+                            echo $_COOKIE['user_password'];
+                        }
+                        ?>" placeholder="Enter password" />
+                    <div class="help-block" id="err-password"></div>
+                  </div>
+                  <div>	
+                    <button type="submit" class="login-btn" id="" name="">Log in</button>
+                  </div>
+                  <div class="login-with-btn">
+                    <div class="row">
+                      <div class="col-sm-6 p-0 m-0">
+                          <input id="myCheckbox" name="rememberMe" type="checkbox" value="1" <?php
+                            if (isset($_COOKIE['user_email']) && $_COOKIE['user_password'] !== NULL) {
+                                echo 'checked="checked"';
+                            }
+                            ?>>
+                          <label for="remember" class="label">Remember Me</label>
+                      </div>
+                      <div class="col-sm-6 p-0 m-0">
+                        <div class="custom-forgot">
+                           <a href="javascript:void(0)" class="forgot-password-link" data-toggle="modal" onclick="forgot();"> Forgot Password?</a>
+                        </div>  
+                      </div>
+                    </div>
+                  </div>
+                  <div class="log-in-modal-cus">
+                    <hr>	
+                    <p>No Account? <a href="javascript:void(0)" class="forgot-password-link" data-toggle="modal" onclick="signup();">Create An Account? </a></p>
+                    </div>
+                </form>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
-        <div id="_mobile_storeinfo" class="block-contact col-md-12 col-sm-12 col-xs-12 footer-block"></div>
-        <!-- -------------------myaccount---------- -->
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 links wrapper footer-block">
-            <h3 class="h3 title_block hidden-md-down">Quick Links</h3>
-            <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#footer_account_list" data-toggle="collapse">
-            <span class="h3">Quick Links</span>
-            <span class="float-xs-right">
-                <span class="navbar-toggler collapse-icons">
-                <i class="material-icons add"></i>
-                <i class="material-icons remove"></i>
-                </span>
-            </span>
-            </div>              
-            <ul id="footer_account_list" class="footer-dropdown collapse">
-            
-            <li>
-                <a class="cms-page-link" href="{{route('about-us')}}">
-                About Us
-                </a>
-            </li>
-            <li>
-                <a class="cms-page-link" href="{{route('recipe')}}">
-                Recipe
-                </a>
-            </li>
-            <li>
-                <a class="cms-page-link" href="{{route('blog')}}">
-                Blog
-                </a>
-            </li>
-            
-            </ul>
-        </div>
-        <!-- -------------------linklist---------- -->
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 links wrapper footer-block">
-            <h3 class="h3 title_block hidden-md-down">Product</h3>
-            <div class="footer-title clearfix hidden-lg-up collapsed" data-target="#footer_sub_menu_83280" data-toggle="collapse">
-            <span class="h3 title_block">Product</span>
-            <span class="navbar-toggler collapse-icons">
-                <i class="material-icons add"></i>
-                <i class="material-icons remove"></i>
-            </span>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- signup modal -->
+<div class="modal fade" id="signUp" tabindex="-1" role="dialog" aria-labelledby="signUpLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title modal-custom-title" id="signUpLabel">Signup To Alpha Maths</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true" class="cross"><i class="fa fa-times-circle"></i></span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="custom-modal-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="log-sign-body">
+                <!-- <div class="login-with-btn">
+                  <a href="https://www.facebook.com/" class="custom-my-button facebook-bg"><i class="fa fa-facebook-square margin-right-area" aria-hidden="true"></i> Continue With Facebook</a>
+                </div>
+                <div class="login-with-btn">
+                  <a href="https://www.facebook.com/" class="custom-my-button google-bg"><i class="fa fa-google margin-right-area" aria-hidden="true"></i> Continue With Google</a>
+                </div>
+                <div class="login-with-btn text-center">
+                  <h6 class="or-text">OR</h6>
+                </div> -->
+                <form id="signup-form" action="{{ Route('signup') }}" method="POST">
+                    @csrf
+                  <div class="form-group">
+                    <input type="text" placeholder="User Full Name" class="form-control log-user" name="full_name">
+                    <div class="help-block" id="error-full_name"></div>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" placeholder="User Email Id" class="form-control log-user" name="email">
+                    <div class="help-block" id="error-email"></div>
+                  </div>
+                  <div class="form-group">
+                    <input type="tel" placeholder="User Mobile" class="form-control log-user" name="phone">
+                    <div class="help-block" id="error-phone"></div>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" placeholder="User Password" class="form-control log-user"  name="password">
+                    <div class="help-block" id="error-password"></div>
+                  </div>
+                  <div class="form-group gap-reduce">
+                    <input type="password" placeholder="Re-type Password" class="form-control log-user"  name="confirm_password">
+                    <div class="help-block" id="error-confirm_password"></div>
+                  </div>
+                  <div>	
+                    <button type="submit" class="login-btn" id="" name="">Create Account</button>
+                  </div>
+                  <div class="log-in-modal-cus">
+                    <hr>	
+                    <p>Already Member? <a href="javascript:void(0)" class="forgot-password-link" data-toggle="modal" onclick="login();">Login </a></p>
+                    </div>
+                </form>
+              </div>
             </div>
-            <ul id="footer_sub_menu_83280" class="footer-dropdown collapse">
-                <?php
-                $footer_subs= App\Model\Subcategory::where('status', '1')->inRandomOrder()->take('5')->get();
-                ?>
-                @forelse($footer_subs as $fs)
-                <li>
-                    <a class="cms-page-link" href="{{ route('product.subcat',['slug1' => $fs->category->slug, 'slug2' => $fs->slug]) }}">
-                    
-                    {{$fs->name}}
-                    </a>
-                </li>
-                @empty
-                @endforelse
-            
-            </ul>
+          </div>
         </div>
-        <!-- -------------------contactblock ---------- -->
-        <div id="_desktop_storeinfo" class="block-contact col-lg-3 col-md-12 col-sm-12 col-xs-12 footer-block">
-            <h3 class="h3 title_block hidden-md-down">Store information</h3>             
-            <div id="contact-info-container" class="footer-contact">
-            <div class="block address col-lg-12 col-md-4 col-sm-4 col-xs-12">
-                <span class="icon"><i class="fa fa-map-marker"></i></span>
-                <div class="content"><address>{{$location[0]->value}}</address></div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- forgot modal-->
+<div class="modal fade" id="forGot" tabindex="-1" role="dialog" aria-labelledby="forGotLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title modal-custom-title" id="forGotLabel">Forgot Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="cross"><i class="fa fa-times-circle"></i></span>
+                </button>
             </div>
-            <div class="block phone col-lg-12 col-md-4 col-sm-4 col-xs-12">
-                <span class="icon phone"><i class="fa fa-phone"></i></span>
-                <div class="content">
-                <a href="#">{{$location[1]->value}}</a>
+            <div class="modal-body">
+                <div class="custom-modal-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="log-sign-body">
+                                    <form id="forgot-form" action="{{ Route('forgot-password') }}" method="POST">
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <input type="email" class="form-control log-user" name="email" placeholder="Email address">
+                                            <div class="help-block" id="er-email"></div>
+                                        </div>
+
+                                        <div>	
+                                            <button type="submit" class="login-btn" id="" name="">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="block email col-lg-12 col-md-4 col-sm-4 col-xs-12">
-                <span class="icon"><i class="fa fa-envelope"></i></span>
-                <div class="content">
-                <a href="#">{{$location[2]->value}}</a>
+        </div>
+    </div>
+</div>
+
+<!-- Reset modal-->
+<div class="modal fade" id="reset_password_modal" tabindex="-1" role="dialog" aria-labelledby="forGotLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title modal-custom-title" id="forGotLabel">Reset Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="cross"><i class="fa fa-times-circle"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="custom-modal-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="log-sign-body">
+                                    <form id="reset-password-form" action="{{ Route('set-password') }}" method="POST">
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password" placeholder="Password">
+                                            <div class="help-block" id="erro-password"></div>
+                                        </div>
+                                        <div class="form-group gap-reduce">
+                                            <input type="password" class="form-control" name="retype_password" placeholder="Retype Password">
+                                            <div class="help-block" id="erro-retype_password"></div>
+                                        </div>
+
+                                        <div>	
+                                            <button type="submit" class="login-btn" id="" name="">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-        </div>
         </div>
     </div>
-    </div>
-    <div class="footer-after">
-    <div class="container">
-        <div class="row">
-        <div class="col-lg-12 col-xs-12">
-            <!-- -------------------copyrights---------- -->
-            <p class="footer-aftertext">
-            © Copyright {{date('Y')}} {{ env('APP_NAME', 'Select Fresh') }}. All Rights Reserved. 
-                <a class="_blank" href="http://thebrokenweb.com/" target="_blank">
-                Design & Developed By TheBrokenWeb
-                </a>
-            </p>
-        </div>
-        <div class="col-lg-6 col-xs-12">
-            <!-- -------------------payment block---------- -->
-            <!-- <div class="paymentlogo-container">
-            <img src="assets/images/paymenticon/1.png" alt="Discover">
-            <img src="assets/images/paymenticon/2.png" alt="Visa">
-            <img src="assets/images/paymenticon/3.png" alt="JCB">
-            <img src="assets/images/paymenticon/4.png" alt="PayPal">
-            <img src="assets/images/paymenticon/5.png" alt="Master Card">
-            <img src="assets/images/paymenticon/6.png" alt="American Express">
-            </div> -->
-        </div>
-        
-            <script type="text/javascript">
-                $("#ishispecialdeal .item").each(function() {
-                var container = $(this).find('.countdown-container');
-                var time = $(this).data('countdowntime');
-                $(container).countdown(time, function(event) {
-                    $(this).find(".countdown-days .data").html(event.strftime('%D'));
-                    $(this).find(".countdown-hours .data").html(event.strftime('%H'));
-                    $(this).find(".countdown-minutes .data").html(event.strftime('%M'));
-                    $(this).find(".countdown-seconds .data").html(event.strftime('%S'));
-                });
-                });
-                var specialdeals = $("#ishispecialdeals-carousel").owlCarousel({
-                items:1,
-                dots:true,
-                rtl: $('html').attr('dir') == 'rtl'? true : false,
-                });
-            </script>
-            </div>
-        </div>
-        </div>
-    </div>
-    </div>
-    <a id="slidetop" href="#" ></a>
-</footer>
+</div>

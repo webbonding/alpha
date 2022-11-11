@@ -7,33 +7,31 @@
         </script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ env('APP_NAME', 'SELECT FRESH') }}</title>
-		<meta name="title" content="Select Fresh">
-        <meta name="keywords" content="Select Fresh">
-        <meta name="description" content="Select Fresh">
-        <meta property="og:title" content="Select Fresh" />
+        <title>{{ env('APP_NAME', 'ALPHA MATHS') }}</title>
+		<meta name="title" content="Alpha Maths">
+        <meta name="keywords" content="Alpha Maths">
+        <meta name="description" content="Alpha Maths">
+        <meta property="og:title" content="Alpha Maths" />
         <meta property="og:image" content="{{ URL::asset('public/frontend/images/og_image.jpg') }}" />
-        <meta property="og:description" content="Select Fresh" />
-        <!-- Chrome, Firefox OS and Opera -->
-		<meta name="theme-color" content="#007038">
-		<!-- Windows Phone -->
-		<meta name="msapplication-navbutton-color" content="#007038">
-		<!-- iOS Safari -->
-		<meta name="apple-mobile-web-app-status-bar-style" content="#007038">
+        <meta property="og:description" content="Alpha Maths" />
+        <meta name="theme-color" content="#d99bff">
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#d99bff">
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="#d99bff">
 
         <link rel="shortcut icon" href="{{ URL::asset('favicon.png') }}">
 
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/custom/cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/custom/www.atlasestateagents.co.uk/css/tether.min.css') }}">
-        <script type="text/javascript" src="{{ URL::asset('public/frontend/custom/www.atlasestateagents.co.uk/javascript/tether.min.js') }}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
         
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/owl.carousel.min.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/theme.css') }}">
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/style.css') }}">
+        <!-- <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/bootstrap.css') }}"> -->
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/neumorphism.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/icofont.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/icofont.min.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/fonts/icomoon/style.css') }}">
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+        
         <!--fontawesome-4-->
         <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
         <link href="{{ URL::asset('public/frontend/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
@@ -41,38 +39,16 @@
        	<link href="{{ URL::asset('public/frontend/custom/iao-alert/iao-alert.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ URL::asset('public/backend/css/jquery-confirm.css') }}" rel="stylesheet" type="text/css" />
 
-        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/custom.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/stylesheet.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/responsive.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('public/frontend/css/nunito.css') }}">
         
         <style>
             .help-block{
                 color:red;
             }    
         </style>
-        <script type="text/javascript" src="{{ URL::asset('public/frontend/js/jquery.js') }}"></script>
-        <script src="{{ URL::asset('public/frontend/js/bootstrap.min.js') }}"></script>
         
-        <script src="{{ URL::asset('public/frontend/js/popper.min.js') }}"></script>
-        <!----------slider/clients------>
-        <script src="{{ URL::asset('public/frontend/js/slick.js') }}"></script>
-        <!--<script src="{{ URL::asset('public/frontend/js/jquery.min.js') }}" type="text/javascript"></script>-->
-        <script src="{{ URL::asset('public/frontend/js/datatables.min.js') }}" type="text/javascript"></script>
-
-        <script src="{{ URL::asset('public/frontend/js/owl.carousel.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/animate.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/totalstorage.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/counter.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/parallax.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/bxslider.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/ishi.initialize.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('public/frontend/js/support.js') }}" type="text/javascript"></script>
-
-
-        <script src="{{ URL::asset('public/frontend/custom/js/script.js') }}" type="text/javascript"></script>
-        <script type="text/javascript" src="{{ URL::asset('public/backend/js/jquery-confirm.js') }}"></script>
-		
-
-
-        <script src="{{ URL::asset('public/frontend/custom/iao-alert/iao-alert.min.js') }}" type="text/javascript"></script>
 
         @php
         $routeArray = app('request')->route()->getAction();
@@ -84,17 +60,9 @@
         
         @yield('css')
     </head>
-    <style>
-  
-    </style>
-    <body id="index">
-        <main>
-            <div id="menu_wrapper" class=""></div>
-            <!-- --------------------loader------------ -->
-            <div id="spin-wrapper"></div>
-            <div id="siteloader">
-                <div class="loader"></div>
-            </div>
+    <body>
+        <div class="wrapper">
+            
             @php
             use App\Model\Settings;
             $social_link = Settings::where('module', '=', 'Social Link')->get();
@@ -102,266 +70,131 @@
             @endphp
 
             @include('partials.header')
-
-            <div id="mobile_top_menu_wrapper" class="hidden-lg-up" style="display:none;">
-                <div id="top_menu_closer">
-                <i class="material-icons"></i>
-                </div>
-                <div class="js-top-menu mobile" id="_mobile_top_menu"></div>
-            </div>
-
             @yield('content')
-        </main>
-            @include('partials.footer')
 
+            <!-----sticky-section----->
+            <section class="cellphone desktop-section-hide">
+                <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 p-0">
+                    <ul class="cellphone-ul">
+                    <a href="/" target="_blank"></a>
+                    <li>
+                        <a href="#">
+                        <span>
+                            <i class="icofont-history"></i>
+                        </span>
+                        </a>
+                    </li>
+                    <li>
+                    <a href="#">
+                        <span>
+                            <i class="fa fa-user-o"></i>
+                        </span>
+                    </a>
+                    </li>
+                    </ul> 
+                </div>
+                </div> 
+            </div>      
+            </section>  
+        </div>
+        @include('partials.footer')
+
+        <script type="text/javascript" src="{{ URL::asset('public/frontend/js/jquery.min.js') }}"></script>
+        <script src="{{ URL::asset('public/frontend/js/bootstrap.min.js') }}"></script>
         
+        <script src="{{ URL::asset('public/frontend/js/poppers.min.js') }}"></script>
+        <!----------slider/clients------>
+        <script src="{{ URL::asset('public/frontend/js/headroom.min.js') }}"></script>
+        <script src="{{ URL::asset('public/frontend/js/datatables.min.js') }}" type="text/javascript"></script>
+
+        <script src="{{ URL::asset('public/frontend/js/smooth-scroll.polyfills.min.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('public/frontend/js/neumorphism.js') }}" type="text/javascript"></script>
+
+
+        <script src="{{ URL::asset('public/frontend/custom/js/script.js') }}" type="text/javascript"></script>
+        <script type="text/javascript" src="{{ URL::asset('public/backend/js/jquery-confirm.js') }}"></script>
+		
+
+
+        <script src="{{ URL::asset('public/frontend/custom/iao-alert/iao-alert.min.js') }}" type="text/javascript"></script>
       	
-		<!--/ ToTop trigger -->
-      	<!--<script src="{{ URL::asset('public/frontend/js/jquery-1.11.3.min.js') }}"></script>-->
-        
-      
-      
-      
-        <!-- <script>
-            // open cart modal
-            const cart = document.querySelector('#cart');
-            const cartModalOverlay = document.querySelector('.cart-modal-overlay');
-
-            cart.addEventListener('click', () => {
-            if (cartModalOverlay.style.transform === 'translateX(-200%)'){
-                cartModalOverlay.style.transform = 'translateX(0)';
+		<!-------- back to top js -------------->
+        <script>
+            $(window).scroll(function() {
+            var height = $(window).scrollTop();
+            if (height > 100) {
+                $('#back2Top').fadeIn();
             } else {
-                cartModalOverlay.style.transform = 'translateX(-200%)';
+                $('#back2Top').fadeOut();
             }
-            })
-            // end of open cart modal
-
-            // close cart modal
-            const closeBtn = document.querySelector ('#close-btn');
-
-            closeBtn.addEventListener('click', () => {
-            cartModalOverlay.style.transform = 'translateX(-200%)';
             });
-
-            cartModalOverlay.addEventListener('click', (e) => {
-            if (e.target.classList.contains('cart-modal-overlay')){
-                cartModalOverlay.style.transform = 'translateX(-200%)'
-            }
-            })
-            // end of close cart modal
-
-            // add products to cart
-            const addToCart = document.getElementsByClassName('add-to-cart');
-            const productRow = document.getElementsByClassName('product-row');
-
-            for (var i = 0; i < addToCart.length; i++) {
-            button = addToCart[i];
-            button.addEventListener('click', addToCartClicked)
-            
-            }
-
-            function addToCartClicked (event) {
-            button = event.target;
-            var cartItem = button.parentElement;
-            var price = cartItem.getElementsByClassName('product-price')[0].innerText;
-            
-            var imageSrc = cartItem.getElementsByClassName('product-image')[0].src;
-            addItemToCart (price, imageSrc);
-            updateCartPrice()
-            }
-
-            function addItemToCart (price, imageSrc) {
-            var productRow = document.createElement('div');
-            productRow.classList.add('product-row');
-            var productRows = document.getElementsByClassName('product-rows')[0];
-            var cartImage = document.getElementsByClassName('cart-image');
-            
-            for (var i = 0; i < cartImage.length; i++){
-                if (cartImage[i].src == imageSrc){
-                alert ('This item has already been added to the cart')
-                return;
-                }
-            }
-            
-            var cartRowItems = `
-            <div class="product-row">
-                    <img class="cart-image" src="${imageSrc}" alt="">
-                    <span class ="cart-price">${price}</span>
-                    <input class="product-quantity" type="number" value="1">
-                    <button class="remove-btn">Remove</button>
-                    </div>
-                    
-                `
-            productRow.innerHTML = cartRowItems;
-            productRows.append(productRow);
-            productRow.getElementsByClassName('remove-btn')[0].addEventListener('click', removeItem)
-            productRow.getElementsByClassName('product-quantity')[0].addEventListener('change', changeQuantity)
-            updateCartPrice()
-            }
-            // end of add products to cart
-
-            // Remove products from cart
-            const removeBtn = document.getElementsByClassName('remove-btn');
-            for (var i = 0; i < removeBtn.length; i++) {
-            button = removeBtn[i]
-            button.addEventListener('click', removeItem)
-            }
-
-            function removeItem (event) {
-            btnClicked = event.target
-            btnClicked.parentElement.parentElement.remove()
-            updateCartPrice()
-            }
-
-            // update quantity input
-            var quantityInput = document.getElementsByClassName('product-quantity')[0];
-
-            for (var i = 0; i < quantityInput; i++){
-            input = quantityInput[i]
-            input.addEventListener('change', changeQuantity)
-            }
-
-            function changeQuantity(event) {
-            var input = event.target
-            if (isNaN(input.value) || input.value <= 0){
-                input.value = 1
-            }
-            updateCartPrice()
-            }
-            // end of update quantity input
-
-            // update total price
-            function updateCartPrice() {
-            var total = 0
-            for (var i = 0; i < productRow.length; i += 2) {
-                cartRow = productRow[i]
-            var priceElement = cartRow.getElementsByClassName('cart-price')[0]
-            var quantityElement = cartRow.getElementsByClassName('product-quantity')[0]
-            var price = parseFloat(priceElement.innerText.replace('$', ''))
-            var quantity = quantityElement.value
-            total = total + (price * quantity )
-                
-            }
-            document.getElementsByClassName('total-price')[0].innerText =  '$' + total
-
-            document.getElementsByClassName('cart-quantity')[0].textContent = i /= 2
-            }
-            // end of update total price
-
-            // purchase items
-            const purchaseBtn = document.querySelector('.purchase-btn');
-
-            const closeCartModal = document.querySelector('.cart-modal');
-
-            purchaseBtn.addEventListener('click', purchaseBtnClicked)
-
-            function purchaseBtnClicked () {
-            alert ('Thank you for your purchase');
-            cartModalOverlay.style.transform= 'translateX(-100%)'
-            var cartItems = document.getElementsByClassName('product-rows')[0]
-            while (cartItems.hasChildNodes()) {
-                cartItems.removeChild(cartItems.firstChild)
-                
-            }
-            updateCartPrice()
-            }
-        </script> -->
-
+            $(document).ready(function() {
+            $("#back2Top").click(function(event) {
+                event.preventDefault();
+                $("html, body").animate({
+                scrollTop: 0
+                }, "slow");
+                return false;
+            });
+            });
+        </script>
+        <!-- testimonials expand -->
         <script>
-            
-            $('.btn-number').click(function(e){
-                e.preventDefault();
-                
-                fieldName = $(this).attr('data-field');
-                type      = $(this).attr('data-type');
-                var input = $("input[name='"+fieldName+"']");
-                var currentVal = parseInt(input.val());
-                if (!isNaN(currentVal)) {
-                    if(type == 'minus') {
-                        
-                        if(currentVal > input.attr('min')) {
-                            input.val(currentVal - 1).change();
-                        } 
-                        if(parseInt(input.val()) == input.attr('min')) {
-                            $(this).attr('disabled', true);
-                        }
-
-                    } else if(type == 'plus') {
-
-                        if(currentVal < input.attr('max')) {
-                            input.val(currentVal + 1).change();
-                        }
-                        if(parseInt(input.val()) == input.attr('max')) {
-                            $(this).attr('disabled', true);
-                        }
-
-                    }
-                } else {
-                    input.val(0);
-                }
-            });
-            $('.input-number').focusin(function(){
-            $(this).data('oldValue', $(this).val());
-            });
-            $('.input-number').change(function() {
-                
-                minValue =  parseInt($(this).attr('min'));
-                maxValue =  parseInt($(this).attr('max'));
-                valueCurrent = parseInt($(this).val());
-                
-                name = $(this).attr('name');
-                if(valueCurrent >= minValue) {
-                    $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-                } else {
-                    alert('Sorry, the minimum value was reached');
-                    $(this).val($(this).data('oldValue'));
-                }
-                if(valueCurrent <= maxValue) {
-                    $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-                } else {
-                    alert('Sorry, the maximum value was reached');
-                    $(this).val($(this).data('oldValue'));
-                }
-                
-                
-            });        
-            $(".input-number").keydown(function (e) {
-                // Allow: backspace, delete, tab, escape, enter and .
-                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                    // Allow: Ctrl+A
-                    (e.keyCode == 65 && e.ctrlKey === true) || 
-                    // Allow: home, end, left, right
-                    (e.keyCode >= 35 && e.keyCode <= 39)) {
-                        // let it happen, don't do anything
-                        return;
-                }
-                // Ensure that it is a number and stop the keypress
-                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                    e.preventDefault();
-                }
-            });
-        </script>  
-        <a href="https://chatwith.io/s/select-fresh" class="float" target="_blank">
-        <i class="bi bi-whatsapp" style="position: relative;top: 17px;"></i>
-        </a>
+            $('.moreless-button').click(function() {
+            $('.moretext').slideToggle();
+            if ($('.moreless-button').text() == "Read more") {
+            $(this).text("...")
+            } else {
+            $(this).text("....")
+            }
+        });
+        </script>
+        <!-- smooth scrooling -->
         <script>
-            jQuery(document).ready(($) => {
-                $('.quantity').on('click', '.plus', function(e) {
-                    let $input = $(this).prev('input.qty');
-                    let val = parseInt($input.val());
-                    $input.val( val+1 ).change();
+            $(document).ready(function(){
+            // Add smooth scrolling to all links
+            $("a").on('click', function(event) {
+            
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                // Prevent default anchor click behavior
+                event.preventDefault();
+            
+                // Store hash
+                var hash = this.hash;
+            
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function(){
+            
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
                 });
+                } // End if
+            });
+            });
+        </script>
+        <!------------login-signup-modal------------>
+        <script>
+            function login() {
+                $('.modal').modal('hide');
+                $('#logIn').modal('show');
+            }
+            function signup(){
+            $('.modal').modal('hide');
+                $('#signUp').modal('show');
+            }
+            function forgot(){
+            $('.modal').modal('hide');
+                $('#forGot').modal('show');
+            }
+        </script>
+
         
-                $('.quantity').on('click', '.minus', 
-                    function(e) {
-                    let $input = $(this).next('input.qty');
-                    var val = parseInt($input.val());
-                    if (val > 1) {
-                        $input.val( val-1 ).change();
-                    } 
-                });
-            });
-        </script>    
 
         
 
@@ -404,6 +237,11 @@
                 fadeOnHover: true,
                 zIndex: '9999'
             });
+        </script>
+        @endif
+        @if(Session::has('forgot_token'))
+        <script>
+            $('#reset_password_modal').modal('show');
         </script>
         @endif
     </body>

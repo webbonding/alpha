@@ -101,26 +101,7 @@ Route::prefix('admin')->group(function() {
         Route::post('user-delete/{id}', ['uses' => 'UserController@delete', 'as' => 'user-delete']);
         Route::get('users-csv', ['uses' => 'UserController@get_users_csv', 'as' => 'users-csv']);
 
-        Route::get('/category/datatables', 'CategoryController@datatables')->name('admin-cat-datatables'); //JSON REQUEST
-        Route::get('/category', 'CategoryController@index')->name('admin-cat-index');
-        Route::get('/category/create', 'CategoryController@create')->name('admin-cat-create');
-        Route::post('/category/create', 'CategoryController@store')->name('admin-cat-store');
-        Route::get('/category/edit/{id}', 'CategoryController@edit')->name('admin-cat-edit');
-        Route::post('/category/edit/{id}', 'CategoryController@update')->name('admin-cat-update');
-        Route::get('/category/delete/{id}', 'CategoryController@destroy')->name('admin-cat-delete');
-        Route::get('/category/status/{id1}/{id2}', 'CategoryController@status')->name('admin-cat-status');
-
-        // SUBCATEGORY SECTION ------------
-
-        Route::get('/subcategory/datatables', 'SubCategoryController@datatables')->name('admin-subcat-datatables'); //JSON REQUEST
-        Route::get('/subcategory', 'SubCategoryController@index')->name('admin-subcat-index');
-        Route::get('/subcategory/create', 'SubCategoryController@create')->name('admin-subcat-create');
-        Route::post('/subcategory/create', 'SubCategoryController@store')->name('admin-subcat-store');
-        Route::get('/subcategory/edit/{id}', 'SubCategoryController@edit')->name('admin-subcat-edit');
-        Route::post('/subcategory/edit/{id}', 'SubCategoryController@update')->name('admin-subcat-update');
-        Route::get('/subcategory/delete/{id}', 'SubCategoryController@destroy')->name('admin-subcat-delete');
-        Route::get('/subcategory/status/{id1}/{id2}', 'SubCategoryController@status')->name('admin-subcat-status');
-        Route::get('/load/subcategories/{id}/', 'SubCategoryController@load')->name('admin-subcat-load'); //JSON REQUEST
+        
         // SUBCATEGORY SECTION ENDS------------
 
         Route::get('/blog/datatables', 'BlogController@datatables')->name('admin-blog-datatables'); //JSON REQUEST
@@ -139,20 +120,61 @@ Route::prefix('admin')->group(function() {
         Route::post('/slider/edit/{id}', 'SliderController@update')->name('admin-slider-update');
         Route::get('/slider/delete/{id}', 'SliderController@destroy')->name('admin-slider-delete');
 
-        Route::get('admin-products', ['uses' => 'ProductController@index', 'as' => 'admin-products']);
-        Route::get('admin-viewproduct/{id}', ['uses' => 'ProductController@view', 'as' => 'admin-viewproduct']);
-        Route::get('admin-products-list-datatable', ['uses' => 'ProductController@get_products_list_datatable', 'as' => 'admin-products-list-datatable']);
-        Route::get('admin-addproduct', ['uses' => 'ProductController@add_product', 'as' => 'admin-addproduct']);
-        Route::post('admin-addproduct', ['uses' => 'ProductController@post_add_product', 'as' => 'admin-addproduct']);
-        Route::get('admin-updateproduct/{id}', ['uses' => 'ProductController@get_update', 'as' => 'admin-updateproduct']);
-        Route::post('admin-updateproduct/{id}', ['uses' => 'ProductController@post_update', 'as' => 'admin-updateproduct']);
-        Route::get('admin-deleteproduct/{id}', ['uses' => 'ProductController@delete', 'as' => 'admin-deleteproduct']);
         
-        Route::get('/order/datatables', 'OrderController@datatables')->name('admin-order-datatables'); //JSON REQUEST
         Route::get('/order', 'OrderController@index')->name('admin-order-index');
         Route::get('/order/view/{id}', 'OrderController@view')->name('admin-order-view');
         Route::get('/order/edit/{id}', 'OrderController@edit')->name('admin-order-edit');
         Route::post('/order/edit/{id}', 'OrderController@update')->name('admin-order-update');
         Route::get('/order/delete/{id}', 'OrderController@destroy')->name('admin-order-delete');
+
+        Route::get('/testimonial/datatables', 'TestimonialController@datatables')->name('admin-testimonial-datatables'); //JSON REQUEST
+        Route::get('/testimonial', 'TestimonialController@index')->name('admin-testimonial-index');
+        Route::get('/testimonial/create', 'TestimonialController@create')->name('admin-testimonial-create');
+        Route::post('/testimonial/create', 'TestimonialController@store')->name('admin-testimonial-store');
+        Route::get('/testimonial/edit/{id}', 'TestimonialController@edit')->name('admin-testimonial-edit');
+        Route::post('/testimonial/edit/{id}', 'TestimonialController@update')->name('admin-testimonial-update');
+        Route::get('/testimonial/delete/{id}', 'TestimonialController@destroy')->name('admin-testimonial-delete');
+      
+      
+      	Route::get('/course/datatables', 'CourseController@datatables')->name('admin-course-datatables'); //JSON REQUEST
+        Route::get('/course', 'CourseController@index')->name('admin-course-index');
+        Route::get('/course/create', 'CourseController@create')->name('admin-course-create');
+        Route::post('/course/create', 'CourseController@store')->name('admin-course-store');
+        Route::get('/course/edit/{id}', 'CourseController@edit')->name('admin-course-edit');
+        Route::post('/course/edit/{id}', 'CourseController@update')->name('admin-course-update');
+        Route::get('/course/delete/{id}', 'CourseController@destroy')->name('admin-course-delete');
+
+        
+        Route::get('/course/week/{id}', 'CourseController@week')->name('admin-course-week');
+        Route::get('/course/week/datatables/{id}', 'CourseController@week_datatables')->name('admin-course-week-datatables');
+        Route::get('/course/week/add/{id}', 'CourseController@week_add')->name('admin-course-week-add');
+        Route::post('/course/week/add/{id}', 'CourseController@post_week_add')->name('admin-course-week-add');
+        Route::get('/course/week/edit/{id}', 'CourseController@week_edit')->name('admin-course-week-edit');
+        Route::post('/course/week/edit/{id}', 'CourseController@post_week_edit')->name('admin-course-week-edit');
+        Route::get('/course/week/delete/{id}', 'CourseController@week_delete')->name('admin-course-week-delete');
+        
+        Route::get('/course/week/lessons/{id}', 'CourseController@week_lessons')->name('admin-course-week-lessons');
+        Route::get('/course/week/lessons/datatables/{id}', 'CourseController@week_lessons_datatables')->name('admin-course-week-lessons-datatables');
+        Route::get('/course/week/lessons/add/{id}', 'CourseController@week_lessons_add')->name('admin-course-week-lessons-add');
+        Route::post('/course/week/lessons/add/{id}', 'CourseController@post_week_lessons_add')->name('admin-course-week-lessons-add');
+        Route::get('/course/week/lessons/edit/{id}', 'CourseController@week_lessons_edit')->name('admin-course-week-lessons-edit');
+        Route::post('/course/week/lessons/edit/{id}', 'CourseController@post_week_lessons_edit')->name('admin-course-week-lessons-edit');
+        Route::get('/course/week/lessons/delete/{id}', 'CourseController@week_lessons_delete')->name('admin-course-week-lessons-delete');
+
+        Route::get('/course/week/lessons/chapter/{id}', 'CourseController@week_lessons_chapter')->name('admin-course-week-lessons-chapter');
+        Route::get('/course/week/lessons/chapter/datatables/{id}', 'CourseController@week_lessons_chapter_datatables')->name('admin-course-week-lessons-chapter-datatables');
+        Route::get('/course/week/lessons/chapter/add/{id}', 'CourseController@week_lessons_chapter_add')->name('admin-course-week-lessons-chapter-add');
+        Route::post('/course/week/lessons/chapter/add/{id}', 'CourseController@post_week_lessons_chapter_add')->name('admin-course-week-lessons-chapter-add');
+        Route::get('/course/week/lessons/chapter/edit/{id}', 'CourseController@week_lessons_chapter_edit')->name('admin-course-week-lessons-chapter-edit');
+        Route::post('/course/week/lessons/chapter/edit/{id}', 'CourseController@post_week_lessons_chapter_edit')->name('admin-course-week-lessons-chapter-edit');
+        Route::get('/course/week/lessons/chapter/delete/{id}', 'CourseController@week_lessons_chapter_delete')->name('admin-course-week-lessons-chapter-delete');
+
+        Route::get('/course/week/lessons/chapter/topic/{id}', 'CourseController@week_lessons_chapter_topic')->name('admin-course-week-lessons-chapter-topic');
+        Route::get('/course/week/lessons/chapter/topic/datatables/{id}', 'CourseController@week_lessons_chapter_topic_datatables')->name('admin-course-week-lessons-chapter-topic-datatables');
+        Route::get('/course/week/lessons/chapter/topic/add/{id}', 'CourseController@week_lessons_chapter_topic_add')->name('admin-course-week-lessons-chapter-topic-add');
+        Route::post('/course/week/lessons/chapter/topic/add/{id}', 'CourseController@post_week_lessons_chapter_topic_add')->name('admin-course-week-lessons-chapter-topic-add');
+        Route::get('/course/week/lessons/chapter/topic/edit/{id}', 'CourseController@week_lessons_chapter_topic_edit')->name('admin-course-week-lessons-chapter-topic-edit');
+        Route::post('/course/week/lessons/chapter/topic/edit/{id}', 'CourseController@post_week_lessons_chapter_topic_edit')->name('admin-course-week-lessons-chapter-topic-edit');
+        Route::get('/course/week/lessons/chapter/topic/delete/{id}', 'CourseController@week_lessons_chapter_topic_delete')->name('admin-course-week-lessons-chapter-topic-delete');
     });
 });

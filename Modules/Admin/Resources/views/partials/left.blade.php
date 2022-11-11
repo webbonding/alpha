@@ -71,13 +71,9 @@ list($controller, $action) = explode('@', $controllerAction);
 
         <li class="{{ ($controller=='ContactusController') ? 'active' : '' }}"><a href="{{Route('contactus')}}"><i class="dash_menu_icon_5"></i> Contact Us</a></li>
         <li class="{{ ($controller=='UserController') ? 'active' : '' }}"><a href="{{Route('users')}}"><i class="fa fa-users"></i> Users</a></li>
-        <li class="{{ ($controller=='TeacherController') ? 'active' : '' }}"><a href="#"><i class="fa fa-user"></i> Teacher</a></li>
-        <li class="{{ ($controller=='CategoryController') ? 'active' : '' }}"><a href="{{Route('admin-cat-index')}}"><i class="fa fa-sitemap" aria-hidden="true"></i> Category</a></li>
-        <li class="{{ ($controller=='SubCategoryController') ? 'active' : '' }}"><a href="{{Route('admin-subcat-index')}}"><i class="fa fa-sitemap" aria-hidden="true"></i> Subcategory</a></li>
-        <!-- <li class="{{ ($controller=='ProductController') ? 'active' : '' }}"><a href="{{ Route('admin-products') }}"><i class="fa fa-product-hunt"></i> Product</a></li> -->
-        <li class="{{ ($controller=='CoursesController') ? 'active' : '' }}"><a href="#"><i class="fa fa-product-hunt"></i> Courses</a></li>
-        <!-- <li class="{{ ($controller=='BlogController') ? 'active' : '' }}"><a href="{{Route('admin-blog-index')}}"><i class="fa fa-picture-o" aria-hidden="true"></i> Blog</a></li> -->
-        <li class="{{ ($controller=='SliderController') ? 'active' : '' }}"><a href="{{Route('admin-slider-index')}}"><i class="fa fa-picture-o" aria-hidden="true"></i> Sliders</a></li>
+        <li class="{{ ($controller=='TestimonialController') ? 'active' : '' }}"><a href="{{Route('admin-testimonial-index')}}"><i class="fa fa-sitemap" aria-hidden="true"></i> Testmonials</a></li>
+        <li class="{{ ($controller=='CourseController') ? 'active' : '' }}"><a href="{{Route('admin-course-index')}}"><i class="fa fa-sitemap" aria-hidden="true"></i> Course</a></li>
+        
         <li class="{{ ($controller=='OrderController') ? 'active' : '' }}"><a href="{{Route('admin-order-index')}}"><i class="fa fa-history"></i>Orders</a></li>
         <li><a href="{{ Route('admin-logout') }}"><i class="dash_menu_icon_6"></i> Logout</a></li>
 

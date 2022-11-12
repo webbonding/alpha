@@ -14,6 +14,7 @@ use App\Model\CourseWeek;
 use App\Model\CourseWeekLesson;
 use App\Model\CourseWeekLessonChapter;
 use App\Model\CourseWeekLessonChapterTopic;
+use App\Model\LessonCustomizedQuestion;
 class CourseController extends AdminController {
 
     //*** JSON Request
@@ -314,6 +315,7 @@ class CourseController extends AdminController {
                             return
                                     '<a href="' . Route("admin-course-week-lessons-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
                                     '<a href="' . Route("admin-course-week-lessons-chapter", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-eye"></i> Chapter</a>' .
+                                    '<a href="' . Route("admin-course-week-lessons-customized-question", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-eye"></i> Customized Question</a>' .
                                     '<a href="javascript:;" onclick="deleteCourseWeekLesson(this);" data-href="' . Route("admin-course-week-lessons-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
                         })
                         ->rawColumns(['status', 'action'])
@@ -336,8 +338,17 @@ class CourseController extends AdminController {
         //--- Validation Section
         $validator = Validator::make($request->all(), [
                     'name' => 'required',
+                    "free_video" => "required|url",
+                    "paid_video" => "required|url",
+                    'special_questions_discussion' => 'required|mimes:pdf',
+                    'one_month_pricing' => 'required',
+                    'three_years_pricing' => 'required',
+                    'past_paper_question' => 'required|mimes:pdf',
                     'status' => 'required',
-                        ]
+                        ], [
+                            'special_questions_discussion.mimes' => 'This Type is Invalid.',
+                            'past_paper_question.mimes' => 'This Type is Invalid.',
+                                ]
         );
         $validator->after(function($validator) use($request) {
             
@@ -347,7 +358,18 @@ class CourseController extends AdminController {
             $data = new CourseWeekLesson();
             $input = $request->all();
             $input['week_id']=$id;
-            
+            if ($file = $request->file('special_questions_discussion')) {
+                $name = $this->rand_string(6) . time() . $file->getClientOriginalName();
+                $destinationPath = public_path('uploads/course/lesson');
+                $file->move($destinationPath, $name);
+                $input['special_questions_discussion'] = $name;
+            }
+            if ($file = $request->file('past_paper_question')) {
+                $name = $this->rand_string(6) . time() . $file->getClientOriginalName();
+                $destinationPath = public_path('uploads/course/lesson');
+                $file->move($destinationPath, $name);
+                $input['past_paper_question'] = $name;
+            }
             $data->fill($input)->save();
             $model = Course::where('id', $id)->first();
             $model->updated_at = Carbon::now()->toDateTimeString();
@@ -368,8 +390,17 @@ class CourseController extends AdminController {
     public function post_week_lessons_edit(Request $request, $id) {
         //--- Validation Section
         $validator = Validator::make($request->all(), [
-                    'name' => 'required',
-                    'status' => 'required',
+            'name' => 'required',
+            "free_video" => "required|url",
+            "paid_video" => "required|url",
+            'special_questions_discussion' => 'mimes:pdf',
+            'one_month_pricing' => 'required',
+            'three_years_pricing' => 'required',
+            'past_paper_question' => 'mimes:pdf',
+            'status' => 'required',
+                ], [
+                    'special_questions_discussion.mimes' => 'This Type is Invalid.',
+                    'past_paper_question.mimes' => 'This Type is Invalid.',
                         ]
         );
         $validator->after(function($validator) use($request) {
@@ -379,6 +410,28 @@ class CourseController extends AdminController {
             //--- Logic Section
             $data = CourseWeekLesson::findOrFail($id);
             $input = $request->all();
+            if ($file = $request->file('special_questions_discussion')) {
+                $name = $this->rand_string(6) . time() . $file->getClientOriginalName();
+                $destinationPath = public_path('uploads/course/lesson');
+                $file->move($destinationPath, $name);
+                if ($data->special_questions_discussion != null) {
+                    if (file_exists(public_path('uploads/course/lesson'. $data->special_questions_discussion))) {
+                        unlink(public_path('uploads/course/lesson' . $data->special_questions_discussion));
+                    }
+                }
+                $input['special_questions_discussion'] = $name;
+            }
+            if ($file = $request->file('past_paper_question')) {
+                $name = $this->rand_string(6) . time() . $file->getClientOriginalName();
+                $destinationPath = public_path('uploads/course/lesson');
+                $file->move($destinationPath, $name);
+                if ($data->past_paper_question != null) {
+                    if (file_exists(public_path('uploads/course/lesson'. $data->past_paper_question))) {
+                        unlink(public_path('uploads/course/lesson' . $data->past_paper_question));
+                    }
+                }
+                $input['past_paper_question'] = $name;
+            }
             $data->update($input);
             $model = Course::where('id', $data->course_id)->first();
             $model->updated_at = Carbon::now()->toDateTimeString();
@@ -393,6 +446,121 @@ class CourseController extends AdminController {
     public function week_lessons_delete($id) {
         $data = [];
         $model = CourseWeekLesson::findOrFail($id);
+        
+        
+        $model->delete();
+        //--- Redirect Section
+        $data['status'] = 200;
+        $data['msg'] = 'Data Deleted Successfully.';
+        return response()->json($data);
+        //--- Redirect Section Ends
+    }
+
+    //Week Lessons CUSTOMIZED QUESTIONS
+    
+    public function week_lessons_customized_question_datatables($id) {
+        $datas = LessonCustomizedQuestion::where('lesson_id',$id)->orderBy('id', 'asc')->get();
+        //--- Integrating This Collection Into Datatables
+        return Datatables::of($datas)
+                        ->addIndexColumn()
+                        ->editColumn('question', function($data) {
+                            return $data->question;
+                        })
+                        ->editColumn('status', function ($model) {
+                            if ($model->status == '0') {
+                                $status = '<span class="badge badge-warning"><i class="icofont-warning"></i>Inactive</span>';
+                            } else if ($model->status == '1') {
+                                $status = '<span class="badge badge-success"><i class="icofont-check"></i>Active</span>';
+                            } else if ($model->status == '3') {
+                                $status = '<span class="badge badge-danger"><i class="icofont-close"></i>Delete</span>';
+                            }
+                            return $status;
+                        })
+                        ->editColumn('created_at', function ($model) {
+                                return (!empty($model->created_at)) ? \Carbon\Carbon::parse($model->created_at)->format('d-m-Y H:i A') : 'Not Found';
+                        })
+                        ->addColumn('action', function ($model) {
+                            return
+                                    '<a href="' . Route("admin-course-week-lessons-customized-question-edit", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-edit"></i> Edit</a>' .
+                                    '<a href="javascript:;" onclick="deleteCourseWeekLessonCustomizedQuestion(this);" data-href="' . Route("admin-course-week-lessons-customized-question-delete", [$model->id]) . '" class="btn btn-xs btn-primary pull-left"><i class="fa fa-trash"></i> Delete</a>';
+                        })
+                        ->rawColumns(['status', 'action'])
+                        ->make(true); //--- Returning Json Data To Client Side
+    }
+
+    //*** GET Request
+    public function week_lessons_customized_question($id) {
+        
+        $courseweeklesson= CourseWeekLesson::where('id', $id)->first();
+        // print_r($courseweeklesson);
+        // exit;
+        return view('admin::course.course_week_lessons_customized_question_list', compact('id','courseweeklesson'));
+    }
+    public function week_lessons_customized_question_add($id) {
+        $courseweeklesson= CourseWeekLesson::where('id', $id)->first();
+        return view('admin::course.week_lessons_customized_question_add', compact('id','courseweeklesson'));
+    }
+    public function post_week_lessons_customized_question_add(Request $request,$id) {
+        //--- Validation Section
+        $validator = Validator::make($request->all(), [
+                    'question' => 'required',
+                    'status' => 'required',
+                        ]
+        );
+        $validator->after(function($validator) use($request) {
+            
+        });
+
+        if ($validator->passes()) {
+            $data = new LessonCustomizedQuestion();
+            $input = $request->all();
+            $input['lesson_id']=$id;
+            
+            $data->fill($input)->save();
+            $model = Course::where('id', $id)->first();
+            $model->updated_at = Carbon::now()->toDateTimeString();
+            $model->save();
+
+            return redirect()->route('admin-course-week-lessons-customized-question', [$id])->with('success_msg', 'Course week lesson customized question created successfully.');
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
+        }
+    }
+    //*** GET Request
+    public function week_lessons_customized_question_edit($id) {
+        $data = LessonCustomizedQuestion::findOrFail($id);
+        return view('admin::course.week_lessons_customized_question_edit', compact('data'));
+    }
+
+    //*** POST Request
+    public function post_week_lessons_customized_question_edit(Request $request, $id) {
+        //--- Validation Section
+        $validator = Validator::make($request->all(), [
+                    'question' => 'required',
+                    'status' => 'required',
+                        ]
+        );
+        $validator->after(function($validator) use($request) {
+            
+        });
+        if ($validator->passes()) {
+            //--- Logic Section
+            $data = LessonCustomizedQuestion::findOrFail($id);
+            $input = $request->all();
+            $data->update($input);
+            $model = Course::where('id', $data->course_id)->first();
+            $model->updated_at = Carbon::now()->toDateTimeString();
+            $model->save();
+            
+            return redirect()->route('admin-course-week-lessons-customized-question', [$data->week_id])->with('success_msg', 'Course week lesson customized question updated successfully.');
+        } else {
+            return redirect()->back()->withErrors($validator)->withInput()->with('error_msg', 'Something went wrong please check your input.');
+        }
+        //--- Redirect Section Ends
+    }
+    public function week_lessons_customized_question_delete($id) {
+        $data = [];
+        $model = LessonCustomizedQuestion::findOrFail($id);
         
         
         $model->delete();

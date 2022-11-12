@@ -169,6 +169,14 @@ Route::prefix('admin')->group(function() {
         Route::post('/course/week/lessons/chapter/edit/{id}', 'CourseController@post_week_lessons_chapter_edit')->name('admin-course-week-lessons-chapter-edit');
         Route::get('/course/week/lessons/chapter/delete/{id}', 'CourseController@week_lessons_chapter_delete')->name('admin-course-week-lessons-chapter-delete');
 
+        Route::get('/course/week/lessons/customized-question/{id}', 'CourseController@week_lessons_customized_question')->name('admin-course-week-lessons-customized-question');
+        Route::get('/course/week/lessons/customized-question/datatables/{id}', 'CourseController@week_lessons_customized_question_datatables')->name('admin-course-week-lessons-customized-question-datatables');
+        Route::get('/course/week/lessons/customized-question/add/{id}', 'CourseController@week_lessons_customized_question_add')->name('admin-course-week-lessons-customized-question-add');
+        Route::post('/course/week/lessons/customized-question/add/{id}', 'CourseController@post_week_lessons_customized_question_add')->name('admin-course-week-lessons-customized-question-add');
+        Route::get('/course/week/lessons/customized-question/edit/{id}', 'CourseController@week_lessons_customized_question_edit')->name('admin-course-week-lessons-customized-question-edit');
+        Route::post('/course/week/lessons/customized-question/edit/{id}', 'CourseController@post_week_lessons_customized_question_edit')->name('admin-course-week-lessons-customized-question-edit');
+        Route::get('/course/week/lessons/customized-question/delete/{id}', 'CourseController@week_lessons_customized_question_delete')->name('admin-course-week-lessons-customized-question-delete');
+
         Route::get('/course/week/lessons/chapter/topic/{id}', 'CourseController@week_lessons_chapter_topic')->name('admin-course-week-lessons-chapter-topic');
         Route::get('/course/week/lessons/chapter/topic/datatables/{id}', 'CourseController@week_lessons_chapter_topic_datatables')->name('admin-course-week-lessons-chapter-topic-datatables');
         Route::get('/course/week/lessons/chapter/topic/add/{id}', 'CourseController@week_lessons_chapter_topic_add')->name('admin-course-week-lessons-chapter-topic-add');

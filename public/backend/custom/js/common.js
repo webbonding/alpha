@@ -590,6 +590,45 @@ function deleteCourseWeekLesson(obj) {
 
 }
 
+function deleteCourseWeekLessonCustomizedQuestion(obj) {
+    var url = $(obj).data('href');
+    var csrf_token = $('meta[name="csrf-token"]').attr('content');
+    $.confirm({
+        title: 'Delete Course Week Lesson Customized Question',
+        content: 'Are you sure to Delete this Course Week Lesson Customized Question',
+        type: 'red',
+        typeAnimated: true,
+        buttons: {
+            confirm: {
+                text: '<i class="fa fa-check" aria-hidden="true"></i> Confirm',
+                btnClass: 'btn-red',
+                action: function () {
+                    $.ajax({
+                        url: url,
+                        headers: {'X-CSRF-TOKEN': csrf_token},
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (resp) {
+                            if (resp.status && resp.status === 200) {
+                                $('.page-content').prepend('<div class="alert alert-success mt-2"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
+                                        + '<span>' + resp.msg + '</span></div>');
+
+                                $('#course-week-lessons-customized-question-management').DataTable().ajax.reload();
+
+                            } else {
+                                $('.page-content').prepend('<div class="alert alert-danger mt-2"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
+                                        + '<span>' + resp.msg + '</span></div>');
+                            }
+                        }
+                    });
+                }
+            },
+            cancel: function () {}
+        }
+    });
+
+}
+
 function deleteCourseWeekLessonChapter(obj) {
     var url = $(obj).data('href');
     var csrf_token = $('meta[name="csrf-token"]').attr('content');

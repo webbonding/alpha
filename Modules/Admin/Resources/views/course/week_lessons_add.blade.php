@@ -40,8 +40,60 @@
                                 @endif
                             </div>
                         </div>
-                        
-                        
+                        <div class="form-group {{ $errors->has('free_video') ? ' has-error' : '' }}">
+                            <label class="control-label col-md-3">Free Video<span class="required">*</span></label>
+                            <div class="col-md-10">
+                                <input type="url" class="form-control" placeholder="Free Video" name="free_video" value="{{ (old('free_video')!="") ? old('free_video') : ''}}"/>
+                                @if ($errors->has('free_video'))
+                                <span class="help-block"> {{ $errors->first('free_video') }} </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('paid_video') ? ' has-error' : '' }}">
+                            <label class="control-label col-md-3">Paid Video<span class="required">*</span></label>
+                            <div class="col-md-10">
+                                <input type="url" class="form-control" placeholder="Paid Video" name="paid_video" value="{{ (old('paid_video')!="") ? old('paid_video') : ''}}"/>
+                                @if ($errors->has('paid_video'))
+                                <span class="help-block"> {{ $errors->first('paid_video') }} </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('special_questions_discussion') ? ' has-error' : '' }}">
+                            <label class="control-label col-md-3">Special Questions & Discussion</label>
+                            <div class="col-md-10">
+                                <input type="file" class="form-control"  name="special_questions_discussion" >
+                                @if ($errors->has('special_questions_discussion'))
+                                <span class="help-block"> {{ $errors->first('special_questions_discussion') }} </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('one_month_pricing') ? ' has-error' : '' }}">
+                            <label class="control-label col-md-3">1 Month Pricing<span class="required">*</span></label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" placeholder="1 Month Pricing" name="one_month_pricing" value="{{ (old('one_month_pricing')!="") ? old('one_month_pricing') : ''}}"/>
+                                @if ($errors->has('one_month_pricing'))
+                                <span class="help-block"> {{ $errors->first('one_month_pricing') }} </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('three_years_pricing') ? ' has-error' : '' }}">
+                            <label class="control-label col-md-3">3 Years Pricing<span class="required">*</span></label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control" placeholder="3 Years Pricing" name="three_years_pricing" value="{{ (old('3_years_pricing')!="") ? old('three_years_pricing') : ''}}"/>
+                                @if ($errors->has('three_years_pricing'))
+                                <span class="help-block"> {{ $errors->first('three_years_pricing') }} </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('past_paper_question') ? ' has-error' : '' }}">
+                            <label class="control-label col-md-3">Past Paper Question</label>
+                            <div class="col-md-10">
+                                <input type="file" class="form-control"  name="past_paper_question" >
+                                @if ($errors->has('past_paper_question'))
+                                <span class="help-block"> {{ $errors->first('past_paper_question') }} </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group {{ $errors->has('status') ? ' has-error' : '' }}">
                             <label class="control-label col-md-3">Status <span class="required">*</span></label>
                             <div class="col-md-10">
